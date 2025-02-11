@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Homepage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- 字體 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+TC:wght@100..900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+	rel="stylesheet">
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<link th:href="@{/css/homepage.css}" rel="stylesheet" />
+</head>
+<body>
+	<!-- 導覽列 -->
+	<nav id="navbar_block">
+		<button id="homepage">
+			<p>我的首頁</p>
+		</button>
+		<div class="right_side">
+			<form action="#" method="post">
+				<div class="search">
+					<input class="search_bar" type="text" name="search"
+						placeholder="請輸入搜尋項目"> <span
+						class="search_icon material-symbols-outlined">search</span>
+				</div>
+			</form>
+			<div class="login_block">
+				<span id="login_icon" class="material-symbols-outlined">login</span>
+				<button id="login">登入</button>
+			</div>
+			<div class="cart_block">
+				<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
+				<button id="cart">購物車</button>
+			</div>
+		</div>
+	</nav>
+	<main>
+		<div class="container">
+			<!-- 搜尋區塊 -->
+			<aside id="search_block">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" height="32px"
+						viewBox="0 -960 960 960" width="32px" fill="#5f6368">
+						<path d="M400-280v-400l200 200-200 200Z" /></svg>
+					品牌名稱
+				</p>
+				<div class="brand option_block">
+					<div class="brand_option">
+						<input type="checkbox" name="acer"><span>ACER</span>
+					</div>
+					<div class="brand_option">
+						<input type="checkbox" name="asus"><span>ASUS</span>
+					</div>
+					<div class="brand_option">
+						<input type="checkbox" name="LG"><span>LG</span>
+					</div>
+				</div>
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" height="32px"
+						viewBox="0 -960 960 960" width="32px" fill="#5f6368">
+						<path d="M400-280v-400l200 200-200 200Z" /></svg>
+					作業系統
+				</p>
+				<div class="os option_block">
+					<div class="os_option">
+						<input type="checkbox" name="windows_11"><span>Windows11</span>
+					</div>
+					<div class="os_option">
+						<input type="checkbox" name="windows_10"><span>Windows10</span>
+					</div>
+				</div>
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" height="32px"
+						viewBox="0 -960 960 960" width="32px" fill="#5f6368">
+						<path d="M400-280v-400l200 200-200 200Z" /></svg>
+					尺寸
+				</p>
+				<div class="screen_size option_block">
+					<div class="size_option">
+						<input type="checkbox" name="13_inch"><span>13吋</span>
+					</div>
+					<div class="size_option">
+						<input type="checkbox" name="14_inch"><span>14吋</span>
+					</div>
+					<div class="size_option">
+						<input type="checkbox" name="15_inch"><span>15吋</span>
+					</div>
+					<div class="size_option">
+						<input type="checkbox" name="16_inch"><span>16吋</span>
+					</div>
+				</div>
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" height="32px"
+						viewBox="0 -960 960 960" width="32px" fill="#5f6368">
+						<path d="M400-280v-400l200 200-200 200Z" /></svg>
+					預算
+				</p>
+				<div class="budget option_block">
+					<div class="budget_option">
+						<input type="checkbox" name="ten_thousands"><span>10,000
+							以下</span>
+					</div>
+					<div class="budget_option">
+						<input type="checkbox" name="twenty_thousands"><span>20,000
+							以下</span>
+					</div>
+					<div class="budget_option">
+						<input type="checkbox" name="thirty_thousands"><span>30,000
+							以下</span>
+					</div>
+					<div class="budget_option">
+						<input type="checkbox" name="fourty_thousands"><span>40,000
+							以下</span>
+					</div>
+					<div class="budget_option">
+						<input type="checkbox" name="fifty_thousands"><span>50,000
+							以下</span>
+					</div>
+				</div>
+			</aside>
+			<!-- 產品清單 -->
+			<section id="product_block">
+				<div class="card" th:each="laptop : ${laptops}">
+					<div class="pic">
+						<img src="imageUrl" th:attr="src = ${laptop.imageUrl}" alt="無圖片">
+					</div>
+					<div class="info">
+						<div class="name">
+							<a th:href="@{laptop_spec}" th:text="${laptop.laptopName}"></a>
+						</div>
+						<div class="price">
+							<p>
+								<span>$</span><small th:text="${laptop.price}"></small>
+							</p>
+						</div>
+					</div>
+					<button id="add_to_cart">加入購物車</button>
+				</div>
+			</section>
+		</div>
+	</main>
+	<script src="js/homepage.js"></script>
+</body>
+</html>
