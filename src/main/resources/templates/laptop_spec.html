@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品詳情</title>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<link th:href="@{/css/laptop_spec.css}" rel="stylesheet" />
+</head>
+<body>
+	<nav class="navbar_block">
+		<div id="homepage_block">
+			<a href="#">我的首頁</a>
+		</div>
+		<div id="right_block">
+			<div id="login_block">
+				<span id="login_icon" class="material-symbols-outlined">login</span>
+				<a href="#">登入</a>
+			</div>
+			<div id="cart_block">
+				<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
+				<a href="#">購物車</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="pic">
+			<img alt="#" src="imgUrl" th:attr="src = ${laptop.imageUrl}">
+		</div>
+		<div class="detail">
+			<div class="top_block">
+				<div class="name">
+					<h3 th:text="${laptop.laptopName}"></h3>
+				</div>
+			</div>
+			<div class="middle_block">
+				<div class="spec_block">
+					<div class="spec">
+						<div th:each="spec : ${specs}" class="spec_item">
+							<p th:text="${spec}"></p>
+						</div>
+					</div>
+				</div>
+				<div class="price">
+					$<span th:text="${laptop.price}"></span>
+				</div>
+			</div>
+			<div class="bottom_block">
+				<form action="#" method="#">
+					<select id="qty" name="qty">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+					</select>
+					<button id="buy_btn">立即購買</button>
+					<button id="add_to_cart">加入購物車</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="js/laptop_spec.js"></script>
+</body>
+</html>

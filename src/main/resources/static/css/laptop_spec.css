@@ -1,0 +1,168 @@
+@charset "UTF-8";
+:root{
+	--button_height:24px;
+}
+
+*{
+	box-sizing: border-box;
+	margin:0;
+	padding:0;
+}
+html{
+	height:100vh;
+}
+body{
+	height:100%;
+	background-color: #e6e6e6;
+}
+/* 導覽列 */
+nav.navbar_block{
+	display:flex;
+	justify-content: flex-start;
+	height:40px;
+	background-color: black;
+	color:#fff;
+	position:relative;
+	margin-bottom:50px;
+}
+#right_block{
+	display:flex;
+	justify-content: flex-end;
+	flex-grow:1;
+	margin-right: 30px;
+}
+
+#right_block a,
+#right_block span,
+#homepage_block a{
+	vertical-align: middle;
+	line-height: 40px;
+	text-decoration: none;
+	color:#fff;
+}
+#homepage_block{
+	margin-left: 30px;
+}
+#cart_block{
+	margin-left: 10px;
+}
+/* 產品資訊 */
+div.container{
+	border:1px solid black;
+	border-radius:10px;
+	background-color:#fff;
+	padding:20px;
+	display:flex;
+	flex-direction:row;
+	width:fit-content;
+	height:fit-content;
+	margin:auto;
+}
+
+.pic{
+	/* border:1px solid red; */
+	width:300px;
+	height:300px;
+	background-color: #fff;
+	margin-right:20px;
+	border-right: 1px solid black;
+}
+img{
+	object-fit:contain;
+	width:100%;
+	height:100%;
+}
+
+.detail{
+	/* border:1px solid blue; */
+	display:flex;
+	flex-direction:column;
+	width:350px;
+}
+.top_block,
+.middle_block{
+	border-bottom:1px solid black;
+}
+.name{
+	/* border:1px solid yellow; */
+	height:30px;
+}
+.spec_block{
+	/* border:1px solid green; */
+	height:200px;
+	margin: 0 5px 0 5px;
+}
+
+.price{
+	/* border:1px solid orange; */
+	height:30px;
+	font-size:1.5em;
+	float:right;
+	color:#002699;
+	letter-spacing: 2px;
+}
+.bottom_block{
+	/* border:1px solid purple; */
+	position:relative;
+	flex-grow:1;
+}
+form{
+	height:100%;
+}
+.button_block form button{
+	border:none;
+	width:25%;
+	height:80%;
+}
+
+form > *{
+	vertical-align: middle;
+	position:absolute;
+	bottom:0px;
+	/*
+	top:50%;
+	transform:translateY(calc(var(--button_height) / -2));
+	*/
+}
+
+select{
+	width:50px;
+	border-radius: 3px;
+	padding:3px 5px;
+}
+
+#buy_btn,
+#add_to_cart{
+	border:none;
+	padding:3px 5px;
+	height:var(--button_height);
+	border-radius: 3px;
+	cursor:pointer;
+	font-weight: 700;
+}
+
+#buy_btn{
+	right:20px;
+	background-color: #ff6666;
+	color:#fff;
+}
+
+#add_to_cart{
+	right:100px;
+	background:transparent;
+	border:1px solid #ffb3b3;
+	color:#ffb3b3;
+}
+
+p:before{
+	content:'\25CF';
+	margin-right:5px;
+	font-size:1em;
+}
+.top_block,
+.spec_item{
+	margin-bottom:5px;
+}
+
+
+

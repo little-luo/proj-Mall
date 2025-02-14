@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Homepage</title>
+<title>首頁</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- jQuery -->
 <script
@@ -140,7 +140,11 @@
 					</div>
 					<div class="info">
 						<div class="name">
-							<a th:href="@{laptop_spec}" th:text="${laptop.laptopName}"></a>
+							<!-- /computer_store/laptop_spec 等同於 @{laptop_spec} -->
+							<form th:action="@{laptop_spec}" method="get">
+								<a href="#" th:text="${laptop.laptopName}"></a>
+								<input type="hidden" name="laptopId" th:value="${laptop.laptopId}">
+							</form>
 						</div>
 						<div class="price">
 							<p>

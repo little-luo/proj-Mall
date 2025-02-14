@@ -60,3 +60,9 @@ function check_only_one(other_option,this_el){
 		item.querySelector("input").checked = false;
 	})
 }
+
+// 送出表單
+$("div.info a").on("click",function(e){
+	e.preventDefault();
+	$(this).closest("form").get(0).submit();
+})
