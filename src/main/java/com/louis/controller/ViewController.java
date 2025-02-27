@@ -31,4 +31,9 @@ public class ViewController {
 		
 		return modelAndView;
 	}
+	
+	@GetMapping("/cart")
+	public String toCart() {
+		return "cart";
+	}
 }

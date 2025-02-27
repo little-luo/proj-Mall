@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* 導覽列 */
+nav.navbar_block{
+	display:flex;
+	justify-content: flex-start;
+	height:40px;
+	background-color: black;
+	color:#fff;
+	position:relative;
+	margin-bottom:50px;
+}
+#right_block{
+	display:flex;
+	justify-content: flex-end;
+	flex-grow:1;
+	margin-right: 30px;
+}
+
+#right_block a,
+#right_block span,
+#homepage_block a{
+	vertical-align: middle;
+	line-height: 40px;
+	text-decoration: none;
+	color:#fff;
+}
+#homepage_block{
+	margin-left: 30px;
+}
+#cart_block{
+	margin-left: 10px;
+}

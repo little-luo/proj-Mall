@@ -43,8 +43,10 @@
 				<button id="login">登入</button>
 			</div>
 			<div class="cart_block">
-				<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
-				<button id="cart">購物車</button>
+				<form th:action="@{cart}" method="get">					
+					<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
+					<button id="cart">購物車</button>
+				</form>
 			</div>
 		</div>
 	</nav>

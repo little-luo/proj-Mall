@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>購物車</title>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<linK th:href="@{/css/navbar.css}" rel="stylesheet">
+<link th:href="@{/css/cart.css}" rel="stylesheet" />
+</head>
+<body>
+	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<div class="cart_container">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">全選<input type="checkbox" id="check_all"></th>
+					<th scope="col">商品圖片</th>
+					<th scope="col">商品名稱</th>
+					<th scope="col">商品價格</th>
+					<th scope="col">商品數量</th>
+					<th scope="col">小計</th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div class="checkout_block">
+		<button id="remove_all_btn">全部刪除</button>
+		<div class="total">
+			<span></span>
+		</div>
+		<button id="checkout_btn">結帳</button>
+	</div>
+	<script src="/js/cart.js"></script>
+</body>
+</html>

@@ -73,11 +73,19 @@ div.right_side button{
 #login_icon,
 #cart_icon,
 #login,
-#cart{
+#cart,
+.item_qty{
 	vertical-align: middle;
 	color:#fff;
 }
-
+.item_qty{
+	width:24px;
+	height:24px;
+	border-radius: 12px;
+	background-color: red;
+	display:inline-block;
+	text-align:center;	
+}
 /*輸入框*/
 .search{
 	display:flex;
