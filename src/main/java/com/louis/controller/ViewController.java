@@ -36,4 +36,10 @@ public class ViewController {
 	public String toCart() {
 		return "cart";
 	}
+	
+	@GetMapping("/loginpage")
+	public String loginpage() {
+		return "login";
+	}
+
 }

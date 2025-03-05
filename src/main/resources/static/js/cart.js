@@ -150,6 +150,31 @@ $(document).ready(function(){
 	$(document).on("click","#go_to_homepage",function(){
 		window.location.href = "/home";
 	})
+	
+	$("#checkout_btn").on("click",function(){
+		let item_list = JSON.parse(sessionStorage.getItem("cart_list")).items;
+		/*
+		console.log(item_list);
+		console.log(JSON.stringify(item_list));
+		*/
+		$.ajax({
+			traditional: true,
+			contentType : "application/json;charset=utf-8",
+			type : "post",
+			url : "/isAuthenticate",
+			data : JSON.stringify(item_list),
+			success  : function(res){
+				console.log(res);
+				$("body").html(res);
+			},
+			error : function(res){
+				console.log(res);
+				$("body").html(res.responseText);
+			}
+		})
+		//window.location.href="/isAuthenticate";
+		
+	})
 })
 
 function getSubTotal(i){
@@ -211,5 +236,20 @@ function updateTotal(){
 	$(".total").get(0).textContent = '總共: $' + sum;
 }
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 

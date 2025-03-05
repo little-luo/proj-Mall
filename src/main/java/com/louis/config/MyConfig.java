@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MyConfig implements WebMvcConfigurer {
-
+	
 	/*
 	 * @Override public void configureViewResolvers(ViewResolverRegistry registry) {
 	 * InternalResourceViewResolver internalResourceViewResolver = new
@@ -19,6 +19,6 @@ public class MyConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("/", "/home");
-	}
-
+	}	
+	
 }
