@@ -41,5 +41,14 @@ public class ViewController {
 	public String loginpage() {
 		return "login";
 	}
-
+	
+	@GetMapping("/sendEmail")
+	public String sendEmail() {
+		return "sendEmail";
+	}
+	
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
 }
