@@ -1,6 +1,7 @@
 package com.louis.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,23 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUserByUsername(String username) {
 		return userDao.getUserByUsername(username);
 	}
+
+	@Override
+	public void resetPassword(String email, String password) {
+		userDao.resetPassword(email,password);
+	}
+
+	@Override
+	public void register(Map<String, Object> params) {
+		
+		String email = (String) params.get("email");
+		
+		List<User> userList = userDao.getUserByUsername(email);
+		
+		if(userList.size() == 0) {
+			userDao.createUser(params);
+		}
+	}
+	
 	
 }

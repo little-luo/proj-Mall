@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>共用</title>
+</head>
+<body>
+	
+ 	<script th:fragment="full_name">
+ 		$.ajax({
+ 			url:'/getFullName',
+ 			method:'get',
+ 			success:function(res){
+ 				let full_name = sessionStorage.getItem('full_name');
+ 				if(full_name == null){
+ 					full_name = JSON.stringify(res);
+	 				sessionStorage.setItem('full_name',full_name);
+ 				}else{
+	 				$("#login").remove();
+	 				$("#login_icon").remove();
+					$(".login_block")
+									 .append('<span id="logout_icon" class="material-symbols-outlined">logout</span>')
+	 								 .append('<button id="logout">' + full_name + '</button>'); 					
+ 				}
+ 			}
+ 		})
+	</script>
+</body>
+</html>

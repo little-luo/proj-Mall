@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>註冊使用者</title>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<linK th:href="@{/css/navbar.css}" rel="stylesheet">
+<linK th:href="@{/css/register.css}" rel="stylesheet">
+</head>
+<body>
+	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<div class="container">
+		<h1>會員註冊
+			<span class="material-symbols-outlined">person_add</span>
+		</h1>
+		<form method="post" action="/users/register">
+			<div class="email_block">
+				<label for="email">電子信箱:</label> 
+				<input type="email" required="required" name="username" id="email"> 
+			</div>
+			<div class="password_block">
+				<label	for="password">密碼:</label> 
+				<input type="password" name="password" id="password">
+			</div>
+			<div class="gender_block">
+				<label>性別:</label>
+				<div>
+					<span>男</span>
+					<input type="radio" value="男" checked="checked" name="gender">
+					<span>女</span>
+					<input type="radio" value="女" name="gender">
+				</div>
+			</div>
+			<div class="fullname_block">
+				<label for="full_name">姓名:</label>
+				<input type="text" name="full_name" id="full_name">
+			</div>
+			<div>
+				<label for="city_selector">地址:</label>
+				<div class="city_block">
+					<!-- 縣市、地區 -->
+					<div role="tw-city-selector" class="my_city_selector" id="city_selector"></div>
+					<input type="text" name="address">
+				</div>
+				<div class="btn_block">
+					<button>送出</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 載入第三方套件 -->
+ 	<script src="/js/tw-city-selector.min.js"></script>
+	<!-- JS -->
+	<script>
+		new TwCitySelector();
+	</script>
+	<script src="/js/register.js"></script>
+</body>
+</html>

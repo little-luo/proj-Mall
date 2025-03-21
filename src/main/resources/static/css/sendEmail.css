@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #F5F5F5;
+}
+
+form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+form>* {
+	width: 90%;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.form_block .email_block input {
+	border: none;
+	outline: none;
+	padding: 5px 0 5px 15px;
+	height: 32px;
+	flex-grow: 1;
+	font-size: large;
+}
+
+.form_block button {
+	background-color: #3385ff;
+	font-size: 1em;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	padding: 3px;
+	cursor: pointer;
+	font-weight: 700;
+}
+
+.email_block {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.email_block span {
+	font-size: 28px;
+	margin-right: 10px;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 30%;
+	margin: auto;
+	text-align: center;
+	padding: 20px;
+	background: #ffffb3;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	position:relative;
+	top:10px;
+}
+
+.link_block {
+	display: flex;
+	flex-direction: column;
+}
+
+.link_block a.link_text {
+	display: block;
+	margin: 5px 0;
+}
+
+.title label h1 {
+	margin-bottom: 10px;
+}
+
+.icon {
+	font-size: 2em;
+	user-select: none;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
+
+label > *{
+	vertical-align:middle;
+}
+
+label h1{
+	text-align: center;
+	display: inline-block;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>電子郵件</title>
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<linK th:href="@{/css/navbar.css}" rel="stylesheet">
+<linK th:href="@{/css/sendEmail.css}" rel="stylesheet">
+</head>
+<body>
+	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<div class="container">
+		<div class="title">
+			<label for="user_email">
+				<h1>忘記密碼</h1>
+				<span class="icon material-symbols-outlined">live_help</span>
+			</label>
+		</div>
+		<div class="form_block">
+			<!-- 顯示錯誤訊息 -->
+			<p th:if="${errorMsg}" style="color: red;">[[${errorMsg}]]</p>
+			<form action="/validate" method="post">
+				<div class="email_block">
+					<span class="material-symbols-outlined">mail</span>
+					<input type="email" required="required" placeholder="電子郵件" name="user_email" id="user_email">
+				</div>
+				<button type="submit">請傳送重設密碼說明至以上電郵</button>
+			</form>
+		</div>
+		<div class="link_block">
+			<a href="/loginpage" class="link_text">會員登入</a> 
+			<a href="/register" class="link_text">新用戶註冊</a>
+		</div>
+	</div>
+</body>
+</html>
