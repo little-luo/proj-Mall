@@ -13,21 +13,7 @@
 <link th:href="@{/css/laptop_spec.css}" rel="stylesheet" />
 </head>
 <body>
-	<nav class="navbar_block" th:fragment="navbar">
-		<div id="homepage_block">
-			<a href="#">我的首頁</a>
-		</div>
-		<div id="right_block">
-			<div id="login_block">
-				<span id="login_icon" class="material-symbols-outlined">login</span>
-				<a href="#">登入</a>
-			</div>
-			<div id="cart_block">
-				<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
-				<a href="#">購物車</a>
-			</div>
-		</div>
-	</nav>
+	<nav th:replace="~{shared::navbar}"></nav>
 
 	<div class="container">
 		<div class="pic">
@@ -72,5 +58,6 @@
 		</div>
 	</div>
 	<script src="js/laptop_spec.js"></script>
+	<div th:replace="~{shared::full_name}"></div>
 </body>
 </html>

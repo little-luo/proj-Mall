@@ -10,13 +10,13 @@ body {
 	background-color: #F5F5F5;
 }
 
-form {
+.form_block form {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 }
 
-form>* {
+.form_block form > * {
 	width: 90%;
 	position: relative;
 	left: 50%;

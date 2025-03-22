@@ -14,38 +14,40 @@
 <linK th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body>
-	<nav th:replace="~{laptop_spec::navbar}"></nav>
-	<form action="/login" method="post">
-		<div>
-			<span class="login_icon material-symbols-outlined">account_circle
-			</span>
-		</div>
-		<div class="login">
-			<label for="acc">
-				<h1>使用者名稱:</h1>
-			</label>
-			<div class="acc">
-				<input type="text" name="username" placeholder="請輸入帳號" required="required" id="acc">
-				<span class="material-symbols-outlined">group</span>
+	<nav th:replace="~{shared::navbar}"></nav>
+	<div class="container">
+		<form action="/login" method="post">
+			<div>
+				<span class="login_icon material-symbols-outlined">account_circle
+				</span>
 			</div>
-			<br>
-			<label for="pw">
-				<h1>密碼:</h1>
-			</label>
-			<div class="pass">
-				<input type="password" name="password" placeholder="請輸入密碼" required="required" id="pw">
-				<span class="material-symbols-outlined">lock</span>
+			<div class="login">
+				<label for="acc">
+					<h1>使用者名稱:</h1>
+				</label>
+				<div class="acc">
+					<input type="text" name="username" placeholder="請輸入帳號" required="required" id="acc">
+					<span class="material-symbols-outlined">group</span>
+				</div>
+				<br>
+				<label for="pw">
+					<h1>密碼:</h1>
+				</label>
+				<div class="pass">
+					<input type="password" name="password" placeholder="請輸入密碼" required="required" id="pw">
+					<span class="material-symbols-outlined">lock</span>
+				</div>
 			</div>
-		</div>
-		<div class="btn_block">
-			<button type="submit">登入</button>
-		</div>
-		<div class="remember_me_block">
-			<input type="checkbox" class="remember_me"><span>記住我</span>
-		</div>
-		<div class="link_block">
-			<a href="/sendEmail" class="link_text">忘記密碼?</a> <a href="/register" class="link_text">註冊新帳號</a>
-		</div>
-	</form>
+			<div class="btn_block">
+				<button type="submit">登入</button>
+			</div>
+			<div class="remember_me_block">
+				<input type="checkbox" class="remember_me"><span>記住我</span>
+			</div>
+			<div class="link_block">
+				<a href="/sendEmail" class="link_text">忘記密碼?</a> <a href="/register" class="link_text">註冊新帳號</a>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

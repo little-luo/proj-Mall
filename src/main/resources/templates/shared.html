@@ -8,24 +8,51 @@
 <title>共用</title>
 </head>
 <body>
+	<nav id="navbar_block" th:fragment="navbar">
+		<div id="homepage_block">
+			<a href="/home">我的首頁</a>
+		</div>
+		<div id="right_block">
+			<div th:replace="~{homepage::login_block}"></div>
+			<div th:replace="~{homepage::cart_block}"></div>
+		</div>
+	</nav>
 	
  	<script th:fragment="full_name">
  		$.ajax({
  			url:'/getFullName',
  			method:'get',
  			success:function(res){
- 				let full_name = sessionStorage.getItem('full_name');
- 				if(full_name == null){
- 					full_name = JSON.stringify(res);
+				console.log(res);
+ 				if(res != null && res != ""){
+ 					full_name = res;
 	 				sessionStorage.setItem('full_name',full_name);
- 				}else{
 	 				$("#login").remove();
 	 				$("#login_icon").remove();
-					$(".login_block")
-									 .append('<span id="logout_icon" class="material-symbols-outlined">logout</span>')
-	 								 .append('<button id="logout">' + full_name + '</button>'); 					
+					$(".login_block").append('<span id="logout_icon" class="material-symbols-outlined">logout</span>')
+	 								 .append('<button id="logout">' + full_name + '</button>'); 
+					
+					$(".login_block").on("click","#logout_icon",function(){
+			 			$(this).remove();
+			 			$("#logout").remove();
+			 			$(".login_block").append('<span id="login_icon" class="material-symbols-outlined">login</span>')
+			 							 .append('<button id="login">登入</button>');
+			 			sessionStorage.removeItem('full_name');
+			 		})
+			 		$(".login_block").on("click","#logout",function(){
+			 			window.location.href = '/member';
+			 		})
  				}
  			}
+ 		})
+ 		$(document).ready(function(){
+	 		$(".login_block").on("click","#login_icon",function(){
+				 $("#login").trigger("click");
+			})
+			
+			$(".login_block").on("click","#login",function(){
+				window.location.href = '/loginpage';
+			})
  		})
 	</script>
 </body>

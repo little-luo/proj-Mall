@@ -14,7 +14,7 @@
 <link th:href="@{/css/cart.css}" rel="stylesheet" />
 </head>
 <body>
-	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<nav th:replace="~{shared::navbar}"></nav>
 	<div class="cart_container">
 		<table>
 			<thead>
@@ -40,5 +40,6 @@
 		<button id="checkout_btn">結帳</button>
 	</div>
 	<script src="/js/cart.js"></script>
+	<div th:replace="~{shared::full_name}"></div>
 </body>
 </html>

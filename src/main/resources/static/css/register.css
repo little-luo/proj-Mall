@@ -66,15 +66,14 @@ form div input {
 	padding: 5px 10px;
 }
 
-div button {
+div.btn_block button {
 	background-color: #3385ff;
 	font-size: 1em;
 	color: #fff;
 	border: none;
-	border-radius: 3px;
-	padding: 3px;
 	cursor: pointer;
-	font-weight: 700;
+	padding:5px;
+	border-radius: 3px;
 }
 
 label {

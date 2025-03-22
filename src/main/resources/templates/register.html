@@ -14,7 +14,7 @@
 <linK th:href="@{/css/register.css}" rel="stylesheet">
 </head>
 <body>
-	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<nav th:replace="~{shared::navbar}"></nav>
 	<div class="container">
 		<h1>會員註冊
 			<span class="material-symbols-outlined">person_add</span>
@@ -61,5 +61,6 @@
 		new TwCitySelector();
 	</script>
 	<script src="/js/register.js"></script>
+	<script th:replace="~{shared::full_name}"></script>
 </body>
 </html>

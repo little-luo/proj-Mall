@@ -124,3 +124,4 @@ $(".card button").on("click",function(e){
 $(".cart_block #cart").on("click",function(e){
 	$(this).parent().get(0).submit();
 })
+

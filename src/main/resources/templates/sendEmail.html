@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>電子郵件</title>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- icon -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
@@ -11,7 +14,7 @@
 <linK th:href="@{/css/sendEmail.css}" rel="stylesheet">
 </head>
 <body>
-	<nav th:replace="~{laptop_spec::navbar}"></nav>
+	<nav th:replace="~{shared::navbar}"></nav>
 	<div class="container">
 		<div class="title">
 			<label for="user_email">
@@ -35,5 +38,6 @@
 			<a href="/register" class="link_text">新用戶註冊</a>
 		</div>
 	</div>
+	<div th:replace="~{shared::full_name}"></div>
 </body>
 </html>

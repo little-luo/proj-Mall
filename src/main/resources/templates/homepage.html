@@ -38,11 +38,11 @@
 						class="search_icon material-symbols-outlined">search</span>
 				</div>
 			</form>
-			<div class="login_block">
+			<div class="login_block" th:fragment="login_block">
 				<span id="login_icon" class="material-symbols-outlined">login</span>
 				<button id="login">登入</button>
 			</div>
-			<div class="cart_block">
+			<div class="cart_block" th:fragment="cart_block">
 				<form th:action="@{cart}" method="get">					
 					<span id="cart_icon" class="material-symbols-outlined">shopping_cart</span>
 					<button id="cart">購物車</button>
@@ -160,5 +160,6 @@
 		</div>
 	</main>
 	<script src="js/homepage.js"></script>
+	<div th:replace="~{shared::full_name}"></div>
 </body>
 </html>

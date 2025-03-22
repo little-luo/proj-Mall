@@ -47,7 +47,8 @@ div.right_side button{
 }
 #login,
 #cart,
-#homepage{
+#homepage,
+#logout{
 	/*
 	background-color: #71fa6d;
 	padding:5px 15px;
@@ -222,4 +223,16 @@ div.info small{
 	padding:1px 10px;
 	border-radius: 3px;
 	color:#fff;
+}
+#logout{
+	color: white;
+}
+
+#login_icon,
+#logout_icon,
+#cart_icon{
+	vertical-align: middle;
+    color: #fff;
+    cursor: pointer;
+    margin-right:5px;
 }
