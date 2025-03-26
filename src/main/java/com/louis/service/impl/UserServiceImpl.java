@@ -27,14 +27,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void register(Map<String, Object> params) {
+	public boolean register(Map<String, Object> params) {
 		
-		String email = (String) params.get("email");
+		String email = (String) params.get("username");
 		
 		List<User> userList = userDao.getUserByUsername(email);
-		
 		if(userList.size() == 0) {
 			userDao.createUser(params);
+			return true;
+		}else {
+			return false;
 		}
 	}
 	

@@ -11,5 +11,5 @@ public interface UserService {
 	
 	public abstract void resetPassword(String email,String password);
 	
-	public abstract void register(Map<String, Object> params);
+	public abstract boolean register(Map<String, Object> params);
 }

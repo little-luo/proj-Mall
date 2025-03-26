@@ -143,11 +143,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/register")
-	public String register(@RequestParam Map<String, Object> params) {
+	public ModelAndView register(@RequestParam Map<String, Object> params) {
 		
-		userService.register(params);
+		ModelAndView modelAndView = new ModelAndView();
 		
-		return "login";
+		boolean state = userService.register(params);
+		
+		if(state == true) {
+			modelAndView.setViewName("login");
+		}else {
+			modelAndView.setViewName("register");
+			modelAndView.addObject("errorMsg", "電子信箱已存在");
+		}
+		
+		return modelAndView;
+		
 	}
 	
 	@GetMapping("/getFullName")

@@ -20,9 +20,10 @@
 			<span class="material-symbols-outlined">person_add</span>
 		</h1>
 		<form method="post" action="/users/register">
+			<p th:if="${errorMsg}" style="color:red;">[[${errorMsg}]]</p>
 			<div class="email_block">
 				<label for="email">電子信箱:</label> 
-				<input type="email" required="required" name="username" id="email"> 
+				<input type="email" name="username" id="email"> 
 			</div>
 			<div class="password_block">
 				<label	for="password">密碼:</label> 
@@ -49,7 +50,7 @@
 					<input type="text" name="address">
 				</div>
 				<div class="btn_block">
-					<button>送出</button>
+					<button type="submit">送出</button>
 				</div>
 			</div>
 		</form>
