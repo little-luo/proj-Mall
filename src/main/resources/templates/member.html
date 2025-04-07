@@ -3,9 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <title>會員</title>
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- icon -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- 我的css -->
+<linK th:href="@{/css/navbar.css}" rel="stylesheet">
+<linK th:href="@{/css/member.css}" rel="stylesheet">
 </head>
 <body>
 	<nav th:replace="~{shared::navbar}"></nav>
-	<h1>會員</h1>
+	<div class="light_box">
+		<form method="post" action="/updateUser" enctype="multipart/form-data">
+			<div class="red_cross"></div>
+			<label for="full_name">姓名:</label>
+			<input type="text" name="full_name" id="full_name">
+			<label for="gender">性別:</label>
+			<input type="text" name="gender" id="gender">
+			<label for="address">地址:</label>
+			<input type="text" name="address" id="address">
+			<input type="file" name="profile" id="profile">
+			<div class="preview">
+				<label for="profile">上傳您的大頭貼</label>
+			</div>
+			<input type="hidden" name="user_id" id="user_id"> 
+			<button type="submit">送出</button>
+		</form>
+	</div>
+	<div class="main">
+		<div class="profile_block">
+			<img src="" alt="No Image" class="profile">
+		</div>
+		<div class="member_info">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th scope="row">姓名</th>
+						<td>
+							<span class="full_name"></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">性別</th>
+						<td>
+							<span class="gender"></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">縣市</th>
+						<td>
+							<span class="county"></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">地區</th>
+						<td>
+							<span class="district"></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">地址</th>
+						<td>
+							<span class="address"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="btn_block">
+				<button type="button" class="edit_btn">編輯會員資料</button>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/member.js"></script>
+	<div th:replace="~{shared::full_name}"></div>
 </body>
 </html>

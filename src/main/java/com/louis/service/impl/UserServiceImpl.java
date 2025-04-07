@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dao.UserDao;
 import com.louis.module.User;
@@ -39,6 +40,18 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 	}
+
+	@Override
+	public List<User> getUserByFullName(String fullName) {
+		return userDao.getUserByFullName(fullName);
+	}
+
+	@Override
+	public void updateUser(Map<String, Object> params, MultipartFile file) {
+		userDao.updateUser(params,file);
+	}
+	
+	
 	
 	
 }

@@ -1,7 +1,10 @@
 package com.louis.module;
 
+import java.util.Base64;
+
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
@@ -23,6 +26,11 @@ public class User {
 	
 	private String address;
 	
+	@JsonIgnore
+	private byte[] profile;
+	
+	@JsonProperty("img_base64")
+	private String imgBase64;
 	public Integer getId() {
 		return id;
 	}
@@ -85,6 +93,22 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public byte[] getProfile() {
+		return profile;
+	}
+
+	public void setProfile(byte[] profile) {
+		this.profile = profile;
+	}
+
+	public String getImgBase64() {
+		return Base64.getEncoder().encodeToString(this.profile);
+	}
+
+	public void setImgBase64(String imgBase64) {
+		this.imgBase64 = imgBase64;
 	}
 	
 	

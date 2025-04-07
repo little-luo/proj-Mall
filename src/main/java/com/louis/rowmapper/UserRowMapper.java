@@ -22,6 +22,7 @@ public class UserRowMapper implements RowMapper<User> {
 		user.setCounty(rs.getString("county"));
 		user.setDistrict(rs.getString("district"));
 		user.setAddress(rs.getString("address"));
+		user.setProfile(rs.getBytes("profile"));
 		
 		return user;
 	}
