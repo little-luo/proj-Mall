@@ -30,6 +30,11 @@ public class LaptopServiceImpl implements LaptopService {
 	public List<String> getSpecByLaptopId(Integer laptopId) {
 		return dao.getSpecByLaptopId(laptopId);
 	}
+
+	@Override
+	public List<Laptop> getLaptopsByName(String name) {
+		return dao.getLaptopByName(name);
+	}
 	
 	
 }

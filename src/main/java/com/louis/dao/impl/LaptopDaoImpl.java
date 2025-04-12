@@ -61,6 +61,18 @@ public class LaptopDaoImpl implements LaptopDao {
 		
 		return specList;
 	}
+
+	@Override
+	public List<Laptop> getLaptopByName(String name) {
+		
+		String sql = "select laptop_id,laptop_name,price,image_url from laptop where laptop_name like :laptop_name";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("laptop_name", "%" + name + "%");
+		
+		List<Laptop> laptopList = namedParameterJdbcTemplate.query(sql, map, new LaptopRowMapper());
+		return laptopList;
+	}
 	
 	
 }

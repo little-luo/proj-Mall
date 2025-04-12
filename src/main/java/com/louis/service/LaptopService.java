@@ -12,4 +12,6 @@ public interface LaptopService {
 	public abstract List<Laptop> getLaptops();
 	
 	public abstract List<String> getSpecByLaptopId(Integer laptopId);
+	
+	public abstract List<Laptop> getLaptopsByName(String name);
 }

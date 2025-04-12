@@ -91,7 +91,7 @@ div.right_side button{
 .search{
 	display:flex;
 	align-items: center;
-	padding:5px 10px;
+	padding:5px 20px;
 	width:calc(200px + 24px);
 	background-color: #fff;
 	border-radius: 40px;
@@ -106,6 +106,8 @@ div.right_side button{
 .search_icon{
 	color:black;
 	cursor: pointer;
+    position: relative;
+    right: 10px;
 }
 main{
 	height:calc(100% - var(--navbar_height));

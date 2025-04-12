@@ -62,7 +62,7 @@ function check_only_one(other_option,this_el){
 }
 
 // 送出表單
-$("div.info a").on("click",function(e){
+$("#product_block").on("click", "a", function(e){
 	e.preventDefault();
 	$(this).closest("form").get(0).submit();
 })
@@ -71,7 +71,7 @@ $("div.info a").on("click",function(e){
 let item = null;
 let item_list = [];
 let span_el = null;
-$(".card button").on("click",function(e){
+$("#product_block").on("click","button",function(e){
  	let laptopId = $(this).parent().find('input[type="hidden"]').val();
 	$.ajax({
 	    url: '/laptops/' + laptopId,
@@ -125,3 +125,47 @@ $(".cart_block #cart").on("click",function(e){
 	$(this).parent().get(0).submit();
 })
 
+$(".right_side form span").on("click",function(){
+	let form_data = new FormData();
+	form_data.append("search",$(".right_side form input").val());	
+	$.ajax({
+		url:"/search",
+		type:"post",
+		data:form_data,
+		processData: false,
+		contentType: false,
+		dataType: "json",
+		success:function(res){
+			//console.log(res);
+			$("#product_block").empty();
+			for(i = 0; i < res.length; i++){
+				const html = `
+				  <div class="card">
+				    <div class="pic">
+				      <img src="${res[i].imageUrl}" alt="無圖片">
+				    </div>
+				    <div class="info">
+				      <div class="name">
+				        <form action="/laptop_spec" method="get">
+				          <a href="#">${res[i].laptopName}</a>
+				          <input type="hidden" name="laptopId" value="${res[i].laptopId}">
+				        </form>
+				      </div>
+				      <div class="price">
+				        <p>
+				          <span>$</span><small>${res[i].price}</small>
+				        </p>
+				      </div>
+				    </div>
+				    <button id="add_to_cart">加入購物車</button>
+				  </div>
+				`;	
+				$("#product_block").append(html);		
+			}
+		},
+		error:function(err){
+			alert(err.responseText);
+			//console.log(err);
+		}
+	})
+})
