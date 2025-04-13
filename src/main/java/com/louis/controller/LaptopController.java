@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
 import com.louis.service.LaptopService;
 
@@ -66,6 +67,26 @@ public class LaptopController {
 	public 	ResponseEntity<List<Laptop>> search(@RequestParam(name = "search") String name) throws Exception{
 				
 		List<Laptop> laptopList = laptopService.getLaptopsByName(name);
+		
+		if(laptopList.size() > 0) {			
+			return ResponseEntity.status(HttpStatus.OK).body(laptopList);
+		}else {
+			throw new Exception("查無資料");
+		}
+	}
+	
+	@PostMapping("/products")
+	public ResponseEntity<List<Laptop>> getProducts(@RequestParam(required = false, name = "brand_option") String brand,
+													@RequestParam(required = false, name = "os_option") String os,
+													@RequestParam(required = false, name = "size_option") String size,
+													@RequestParam(required = false, name = "budget_option") String budget) throws Exception {
+		SearchQuery query = new SearchQuery();
+		query.setBrand(brand);
+		query.setOs(os);
+		query.setSize(size);
+		query.setBudget(budget);
+		
+		List<Laptop> laptopList = laptopService.getProducts(query);
 		
 		if(laptopList.size() > 0) {			
 			return ResponseEntity.status(HttpStatus.OK).body(laptopList);

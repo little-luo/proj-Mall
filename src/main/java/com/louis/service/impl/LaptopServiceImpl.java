@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.louis.dao.LaptopDao;
+import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
 import com.louis.module.Spec;
 import com.louis.service.LaptopService;
@@ -35,6 +36,13 @@ public class LaptopServiceImpl implements LaptopService {
 	public List<Laptop> getLaptopsByName(String name) {
 		return dao.getLaptopByName(name);
 	}
+
+	@Override
+	public List<Laptop> getProducts(SearchQuery query) {
+		return dao.getProducts(query);
+	}
+	
+	
 	
 	
 }

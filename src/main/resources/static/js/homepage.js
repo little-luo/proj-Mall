@@ -46,11 +46,23 @@ function check_only_one(option,this_el){
 }
 */
 // 核取方塊 寫法二
+let this_el = null;
 $(document).on("click","input[type='checkbox']",function(e){
-	let this_el = this;
-	let other_option = $(this).parent().siblings();
-	check_only_one(other_option,this_el);
-	//console.log(other_option);
+	if(this_el != this){
+		if(this.checked == false){
+			return;
+		}else{			
+			this_el = this;
+			let other_option = $(this).parent().siblings();
+			check_only_one(other_option,this_el);
+			//console.log(other_option);
+		}
+	}else{
+		this_el = this;
+		this_el.checked = false;
+		this_el = null;		
+	}
+	
 })
 
 function check_only_one(other_option,this_el){
@@ -59,6 +71,7 @@ function check_only_one(other_option,this_el){
 	other_option.each(function(index,item){
 		item.querySelector("input").checked = false;
 	})
+	this_el = null;
 }
 
 // 送出表單
@@ -137,31 +150,7 @@ $(".right_side form span").on("click",function(){
 		dataType: "json",
 		success:function(res){
 			//console.log(res);
-			$("#product_block").empty();
-			for(i = 0; i < res.length; i++){
-				const html = `
-				  <div class="card">
-				    <div class="pic">
-				      <img src="${res[i].imageUrl}" alt="無圖片">
-				    </div>
-				    <div class="info">
-				      <div class="name">
-				        <form action="/laptop_spec" method="get">
-				          <a href="#">${res[i].laptopName}</a>
-				          <input type="hidden" name="laptopId" value="${res[i].laptopId}">
-				        </form>
-				      </div>
-				      <div class="price">
-				        <p>
-				          <span>$</span><small>${res[i].price}</small>
-				        </p>
-				      </div>
-				    </div>
-				    <button id="add_to_cart">加入購物車</button>
-				  </div>
-				`;	
-				$("#product_block").append(html);		
-			}
+			showResult(res);
 		},
 		error:function(err){
 			alert(err.responseText);
@@ -169,3 +158,94 @@ $(".right_side form span").on("click",function(){
 		}
 	})
 })
+$("#search_block").on("click","input",function(){
+	// 選取所有勾選的 input 元素
+	let brand_options = $("#search_block .brand_option input:checked")//.filter($(this));
+	let os_option = $("#search_block .os_option input:checked")//.filter($(this));
+	let size_option = $("#search_block .size_option input:checked")//.filter($(this));
+	let budget_option = $("#search_block .budget_option input:checked")//.filter($(this));
+	if(brand_options.length > 1){
+		brand_options = brand_options.filter($(this));
+	}
+	if(os_option.length > 1){
+		os_option = os_option.filter($(this));
+	}
+	if(size_option.length > 1){
+		size_option = size_option.filter($(this));
+	}
+	if(budget_option.length > 1){
+		budget_option = budget_option.filter($(this));
+	}
+	let form_data = new FormData();
+	if(brand_options.length != 0){		
+		form_data.append(brand_options.get(0).parentElement.getAttribute("class"),
+						 brand_options.get(0).getAttribute("name"));						
+	}
+	if(os_option.length != 0){
+		form_data.append(os_option.get(0).parentElement.getAttribute("class"),
+						 os_option.get(0).getAttribute("name"));	
+	}
+	if(size_option.length != 0){
+		form_data.append(size_option.get(0).parentElement.getAttribute("class"),
+						 size_option.get(0).getAttribute("name"));	
+	}
+	if(budget_option.length != 0){
+		let reg = /\d+/;
+		let budget = budget_option.get(0).parentElement
+						 .querySelector("span")
+						 .textContent
+						 .replace(",","")
+					 	 .match(reg);
+		form_data.append(budget_option.get(0).parentElement.getAttribute("class"),budget);	
+		//console.log(budget);
+	}
+	
+	
+	$.ajax({
+		url:"/products",
+		type:"post",
+		data:form_data,
+		processData: false,
+		contentType: false,
+		dataType: "json",
+		success:function(res){
+			//console.log(res);
+			showResult(res);
+		},
+		error:function(err){
+			//console.log(err);
+			alert(err.responseText);
+		}
+		
+	})
+//	for (const value of form_data.values()) {
+//	  console.log(value);
+//	}
+})
+function showResult(res){
+	$("#product_block").empty();
+	for(i = 0; i < res.length; i++){
+		const html = `
+		  <div class="card">
+		    <div class="pic">
+		      <img src="${res[i].imageUrl}" alt="無圖片">
+		    </div>
+		    <div class="info">
+		      <div class="name">
+		        <form action="/laptop_spec" method="get">
+		          <a href="#">${res[i].laptopName}</a>
+		          <input type="hidden" name="laptopId" value="${res[i].laptopId}">
+		        </form>
+		      </div>
+		      <div class="price">
+		        <p>
+		          <span>$</span><small>${res[i].price}</small>
+		        </p>
+		      </div>
+		    </div>
+		    <button id="add_to_cart">加入購物車</button>
+		  </div>
+		`;	
+		$("#product_block").append(html);		
+	}
+}

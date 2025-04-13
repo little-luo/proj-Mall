@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.louis.dao.LaptopDao;
+import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
 import com.louis.module.Spec;
 import com.louis.rowmapper.LaptopRowMapper;
@@ -73,6 +74,47 @@ public class LaptopDaoImpl implements LaptopDao {
 		List<Laptop> laptopList = namedParameterJdbcTemplate.query(sql, map, new LaptopRowMapper());
 		return laptopList;
 	}
-	
+
+	@Override
+	public List<Laptop> getProducts(SearchQuery query) {
+		
+		String sql = "select laptop_id,laptop_name,price,image_url from laptop where 1=1";
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		String brand = query.getBrand();
+		if(brand != null) {
+			brand = brand.toUpperCase();
+			sql = sql + " and brand = :brand";
+			map.put("brand", brand);
+//			System.out.println(brand);
+		}
+		
+		String os = query.getOs();
+		if(os != null) {
+			os = os.replaceFirst("_", " ").toUpperCase();
+			sql = sql + " and os = :os";
+			map.put("os", os);
+//			System.out.println(os);
+		}
+		
+		String size = query.getSize();
+		if(size != null) {
+			size = size.replaceFirst("_", " ");
+			sql = sql + " and size >= :size";
+			map.put("size", size);
+//			System.out.println(size);
+		}
+		
+		String budget = query.getBudget();
+		if(budget != null) {
+			sql = sql + " and price <= :budget";
+			map.put("budget", budget);
+//			System.out.println(budget);
+		}
+//		System.out.println(sql);
+		List<Laptop> laptopList = namedParameterJdbcTemplate.query(sql, map, new LaptopRowMapper());
+		
+		return laptopList;
+	}
 	
 }
