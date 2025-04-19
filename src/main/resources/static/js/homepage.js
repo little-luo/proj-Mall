@@ -82,8 +82,15 @@ $("#product_block").on("click", "a", function(e){
 
 //購物車
 let item = null;
-let item_list = [];
+let item_list;
 let span_el = null;
+if(sessionStorage.getItem("cart_list") != null){
+	item_list = JSON.parse(sessionStorage.getItem("cart_list")).items;
+	span_el = "".concat('<span class="item_qty">',item_list.length.toString(),"</span>");
+	$("#cart").parent().append(span_el);
+}else{
+	item_list = [];
+}
 $("#product_block").on("click","button",function(e){
  	let laptopId = $(this).parent().find('input[type="hidden"]').val();
 	$.ajax({

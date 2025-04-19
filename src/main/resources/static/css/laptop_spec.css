@@ -115,7 +115,7 @@ form{
 	height:80%;
 }
 
-form > *{
+.bottom_block form > *{
 	vertical-align: middle;
 	position:absolute;
 	bottom:0px;
@@ -164,5 +164,22 @@ p:before{
 	margin-bottom:5px;
 }
 
-
+.cart_block form button{
+	vertical-align: middle;
+}
+.item_qty{
+	vertical-align: middle;
+	color:#fff;
+}
+.item_qty{
+	width:24px;
+	height:24px;
+	border-radius: 12px;
+	background-color: red;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    line-height: 0px;
+    margin-left:3px;   
+}
 

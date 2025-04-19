@@ -10,6 +10,7 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 <!-- 我的css -->
+<linK th:href="@{/css/navbar.css}" rel="stylesheet">
 <link th:href="@{/css/laptop_spec.css}" rel="stylesheet" />
 </head>
 <body>
@@ -38,7 +39,7 @@
 				</div>
 			</div>
 			<div class="bottom_block">
-				<form action="#" method="#">
+				<form action="#" method="post">
 					<select id="qty" name="qty">
 						<option>1</option>
 						<option>2</option>
@@ -55,6 +56,7 @@
 					<button id="add_to_cart">加入購物車</button>
 				</form>
 			</div>
+			<div th:text="${laptop.laptopId}" class="id" style="display:none"></div>
 		</div>
 	</div>
 	<script src="js/laptop_spec.js"></script>

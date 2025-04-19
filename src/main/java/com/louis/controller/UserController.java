@@ -53,6 +53,8 @@ public class UserController {
 		HttpSession session = req.getSession();
 		String userName = (String) session.getAttribute("userName");
 		
+		req.getSession().setAttribute("itemList", itemList);
+		
 		if(userName == null) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 	        					 .body(LOGINPAGE);
@@ -84,7 +86,7 @@ public class UserController {
 				session.setAttribute("fullName", fullName);
 				
 				//System.out.println(this.referer);
-				if(this.referer != null) {					
+				if(this.referer.contains("cart")) {					
 					// 登入成功
 					String html = "";
 					html += "<script>window.location.href='";
@@ -92,6 +94,9 @@ public class UserController {
 					html += "'</script>";
 					
 					return ResponseEntity.status(HttpStatus.OK).body(html);
+				}else if(this.referer.contains("laptop_spec")) {
+					List<ItemsDto> itemList = (List<ItemsDto>) req.getSession().getAttribute("itemList");
+					return ResponseEntity.status(HttpStatus.OK).body(paymentController.payment(itemList));
 				}else {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 							 .body(HOMEPAGE);
