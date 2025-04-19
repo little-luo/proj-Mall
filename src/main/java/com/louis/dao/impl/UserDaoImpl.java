@@ -22,7 +22,8 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public List<User> getUserByUsername(String username) {
-		String sql = "select userid, username, password, gender, full_name, county, district, address, profile from webuser where username = :username";
+		String sql = "select userid, username, password, gender, full_name, county, district, address, profile, role "
+				   + "from webuser where username = :username";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
@@ -44,8 +45,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void createUser(Map<String, Object> params) {
-		String sql = "insert into webuser(username, password, gender, full_name, county, district, address)"
-				+ " values (:username, :password, :gender, :fullName, :county, :district, :address)";
+		String sql = "insert into webuser(username, password, gender, full_name, county, district, address) "
+				   + "values (:username, :password, :gender, :fullName, :county, :district, :address)";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -76,7 +77,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getUserByFullName(String fullName) {
-		String sql = "select userid, username, password, gender, full_name, county, district, address, profile from webuser where full_name = :full_name";
+		String sql = "select userid, username, password, gender, full_name, county, district, address, profile, role "
+				   + "from webuser where full_name = :full_name";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("full_name", fullName);

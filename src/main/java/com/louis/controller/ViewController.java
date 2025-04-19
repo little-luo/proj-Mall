@@ -63,5 +63,10 @@ public class ViewController {
 	public String member() {
 		return "member";
 	}
+	
+	@GetMapping("/admin")
+	public String admin() {
+		return "admin";
+	}
 
 }

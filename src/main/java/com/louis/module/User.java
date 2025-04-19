@@ -26,6 +26,8 @@ public class User {
 	
 	private String address;
 	
+	private String role;
+	
 	@JsonIgnore
 	private byte[] profile;
 	
@@ -110,6 +112,13 @@ public class User {
 	public void setImgBase64(String imgBase64) {
 		this.imgBase64 = imgBase64;
 	}
-	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 }

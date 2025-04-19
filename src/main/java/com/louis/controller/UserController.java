@@ -42,6 +42,8 @@ public class UserController {
 	
 	private final String HOMEPAGE = "<script>window.location.href='/home';</script>";
 	
+	private final String ADMINPAGE = "<script>window.location.href='/admin';</script>";
+	
 	private String referer = null;
 	@CrossOrigin
 	@ResponseBody
@@ -85,30 +87,36 @@ public class UserController {
 				String fullName = dbUser.getFullName();
 				session.setAttribute("fullName", fullName);
 				
-				//System.out.println(this.referer);
-				if(this.referer.contains("cart")) {					
-					// 登入成功
-					String html = "";
-					html += "<script>window.location.href='";
-					html += this.referer;
-					html += "'</script>";
-					
-					return ResponseEntity.status(HttpStatus.OK).body(html);
-				}else if(this.referer.contains("laptop_spec")) {
-					List<ItemsDto> itemList = (List<ItemsDto>) req.getSession().getAttribute("itemList");
-					return ResponseEntity.status(HttpStatus.OK).body(paymentController.payment(itemList));
-				}else {
-					return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-							 .body(HOMEPAGE);
+				switch(dbUser.getRole()) {
+					case "admin":{
+						return ResponseEntity.status(HttpStatus.OK).body(this.ADMINPAGE);						
+					}
+					case "member":{						
+						//System.out.println(this.referer);
+						if(this.referer.contains("cart")) {					
+							// 登入成功
+							String html = "";
+							html += "<script>window.location.href='";
+							html += this.referer;
+							html += "'</script>";
+							
+							return ResponseEntity.status(HttpStatus.OK).body(html);
+						}else if(this.referer.contains("laptop_spec")) {
+							List<ItemsDto> itemList = (List<ItemsDto>) req.getSession().getAttribute("itemList");
+							return ResponseEntity.status(HttpStatus.OK).body(paymentController.payment(itemList));
+						}else {
+							return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+									 .body(HOMEPAGE);
+						}	
+					}
 				}
 			} else {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-									 .body(LOGINPAGE);
+									                   .body(LOGINPAGE);
 			}
-		}else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-					 .body(LOGINPAGE);
 		}
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+				                               .body(LOGINPAGE);
 	}
 	
 	@PostMapping("/validate")
