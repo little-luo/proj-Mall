@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,7 +66,10 @@ public class ViewController {
 	}
 	
 	@GetMapping("/admin")
-	public String admin() {
+	public String admin(Model model) {
+		
+		List<Laptop> laptopList = laptopService.getLaptops();
+		model.addAttribute("laptops", laptopList);
 		return "admin";
 	}
 

@@ -7,7 +7,9 @@ public class Laptop {
 	private String laptopName;
 	private Integer price;
 	private String imageUrl;
-
+	private String brand;
+	private String os;
+	private String size;
 	
 	public Integer getLaptopId() {
 		return laptopId;
@@ -39,6 +41,30 @@ public class Laptop {
 	
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getOs() {
+		return os;
+	}
+
+	public void setOs(String os) {
+		this.os = os;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 	
 	

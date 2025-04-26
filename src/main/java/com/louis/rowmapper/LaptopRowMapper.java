@@ -18,6 +18,9 @@ public class LaptopRowMapper implements RowMapper<Laptop> {
 		laptop.setLaptopName(rs.getString("laptop_name"));
 		laptop.setPrice(rs.getInt("price"));
 		laptop.setImageUrl(rs.getString("image_url"));
+		laptop.setBrand(rs.getString("brand"));
+		laptop.setOs(rs.getString("os"));
+		laptop.setSize(rs.getString("size"));
 		
 		return laptop;
 	}
