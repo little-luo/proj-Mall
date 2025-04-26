@@ -1,9 +1,12 @@
 package com.louis.service.impl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
@@ -40,6 +43,11 @@ public class LaptopServiceImpl implements LaptopService {
 	@Override
 	public List<Laptop> getProducts(SearchQuery query) {
 		return dao.getProducts(query);
+	}
+
+	@Override
+	public void createProduct(Map<String, Object> params, MultipartFile file) throws IOException {
+		dao.createProduct(params,file);
 	}
 	
 	

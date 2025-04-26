@@ -30,6 +30,8 @@
 		      <th scope="col">產品品牌</th>
 		      <th scope="col">產品價格</th>
 		      <th scope="col" colspan="2">操作</th>
+		      <th scope="col" style="display:none;">作業系統</th>
+		      <th scope="col" style="display:none;">尺寸</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -41,6 +43,8 @@
 		      <td th:text="${laptop.price}"></td>
 	          <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit">編輯</button></td>
               <td><button type="button" class="btn btn-danger">刪除</button></td>
+              <td th:text="${laptop.os}" style="display:none;"></td>
+              <td th:text="${laptop.size}" style="display:none;"></td>
 		    </tr>
 		  </tbody>
 		</table>

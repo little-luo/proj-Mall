@@ -12,15 +12,17 @@ $(document).ready(function(){
 
 	$(".middle_block").on("click",".btn-success",function(){
 		let prodId = $(this).parents("tr").find("td").eq(0).text();
-		let prodName = $(this).parents("tr").find("td").eq(2).text()
-		let prodBrand = $(this).parents("tr").find("td").eq(3).text()
-		let prodPrice = $(this).parents("tr").find("td").eq(4).text()
+		let prodName = $(this).parents("tr").find("td").eq(2).text();
+		let prodBrand = $(this).parents("tr").find("td").eq(3).text();
+		let prodPrice = $(this).parents("tr").find("td").eq(4).text();
+		let prodSize = $(this).parents("tr").find("td").eq(8).text();
 		
 	//	console.log($(this).parents("tr").find("td").eq(0).text());
 		$("#prodPrice").val(prodPrice);
 		$("#prodId").val(prodId);
 		$("#prodName").val(prodName);
 		$("#prodBrand").val(prodBrand);
+		$("#prodSize").val(prodSize);
 		
 		$(".modal").attr("id","edit");
 		modal.show();
@@ -51,8 +53,7 @@ $(document).ready(function(){
 			let msg = checkFormDataValue();
 			
 			if(msg == "成功提交表單!"){
-				let prodId = $("#prodId").val();
-				$(".modal form").attr("action","".concat("/products","/" +　prodId))
+				$(".modal form").attr("action","".concat("/createProduct"))
 								.attr("method","post");
 				$(".modal form").submit();
 			}else{
@@ -86,26 +87,38 @@ function addModal(){
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form action="#" method="#">
+						<form action="#" method="#" enctype="multipart/form-data">
 							<div class="mb-3">
 							  <label for="prodId" class="form-label">產品編號</label>
-							  <input type="text" class="form-control" id="prodId" value="">
+							  <input type="text" class="form-control" id="prodId" value="" name="prodId">
 							</div>
 							<div class="mb-3">
 								<label for="prodName" class="form-label">產品名稱</label>
-								<input type="text" class="form-control" id="prodName" value="">
+								<input type="text" class="form-control" id="prodName" value="" name="prodName">
 							</div>
 							<div class="mb-3">
 								<label for="prodBrand" class="form-label">產品品牌</label>
-								<input type="text" class="form-control" id="prodBrand" value="">
+								<input type="text" class="form-control" id="prodBrand" value="" name="prodBrand">
 							</div>
 							<div class="mb-3">
 								<label for="prodPrice" class="form-label">產品價格</label>
-								<input type="text" class="form-control" id="prodPrice" value="">
+								<input type="text" class="form-control" id="prodPrice" value="" name="prodPrice">
+							</div>
+							<div class="mb-3">
+								<label for="prodOS" class="form-label">作業系統</label>
+								<select class="form-select" id="prodOS" name="prodOS">
+									<option selected value="NONE">請選擇</option>
+									<option value="WINDOWS 10">win10</option>
+									<option value="WINDOWS 11">win11</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="prodSize" class="form-label">產品尺寸</label>
+								<input type="text" class="form-control" id="prodSize" value="" name="prodSize">
 							</div>
 							<div class="mb-3">
 								<label for="prodImg" class="form-label">產品圖片</label>
-								<input type="file" class="form-control" id="prodImg">
+								<input type="file" class="form-control" id="prodImg" name="prodImg">
 								<div class="preview"></div>
 							</div>
 						</form>

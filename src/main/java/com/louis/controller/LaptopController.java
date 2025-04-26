@@ -1,7 +1,9 @@
 package com.louis.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.ListenerNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.louis.dto.SearchQuery;
@@ -95,4 +98,12 @@ public class LaptopController {
 		}
 	}
 	
+	@PostMapping("/createProduct")
+	public ResponseEntity<List<Laptop>> createProduct(@RequestParam Map<String, Object> params, @RequestParam("prodImg") MultipartFile file) throws IOException{
+		
+		laptopService.createProduct(params,file);
+		
+		return null;
+		
+	}
 }

@@ -1,10 +1,13 @@
 package com.louis.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
-import com.louis.module.Spec;
 
 public interface LaptopService {
 	
@@ -17,4 +20,6 @@ public interface LaptopService {
 	public abstract List<Laptop> getLaptopsByName(String name);
 	
 	public abstract List<Laptop> getProducts(SearchQuery query);
+	
+	public abstract void createProduct(Map<String, Object> params, MultipartFile file) throws IOException;
 }

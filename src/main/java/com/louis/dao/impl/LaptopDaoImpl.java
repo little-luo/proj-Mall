@@ -1,12 +1,18 @@
 package com.louis.dao.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
@@ -118,5 +124,35 @@ public class LaptopDaoImpl implements LaptopDao {
 		
 		return laptopList;
 	}
+
+	@Override
+	public void createProduct(Map<String, Object> params, MultipartFile file) throws IOException {
+		String sql = "insert into laptop(laptop_id,laptop_name,price,image_url,brand,os,size) "
+				   + "values(:laptop_id,:laptop_name,:price,:image_url,:brand,:os,:size)";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("laptop_id", (String)params.get("prodId"));
+		map.put("laptop_name", (String)params.get("prodName"));
+		map.put("price", (String)params.get("prodPrice"));
+		
+		String path ="/images/" + file.getOriginalFilename();
+		map.put("image_url", path);
+		
+		map.put("brand", (String)params.get("prodBrand"));
+		map.put("os", (String)params.get("prodOS"));
+		map.put("size", (String)params.get("prodSize"));
+		try {
+			String IMAGE_DIRECTORY = new ClassPathResource("/static/images/").getFile().getAbsolutePath();
+			//System.out.println("IMAGE_DIRECTORY:" + IMAGE_DIRECTORY);
+			Files.write(Paths.get(IMAGE_DIRECTORY,file.getOriginalFilename()), file.getBytes());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		namedParameterJdbcTemplate.update(sql, map);
+		
+	}
+	
+	
 	
 }
