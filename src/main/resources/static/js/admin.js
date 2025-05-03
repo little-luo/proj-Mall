@@ -29,7 +29,7 @@ $(document).ready(function(){
 	})
 	
 	$(".btn-close").on("click",function(){
-		$("#prodPrice,#prodId,#prodName,#prodBrand").val("");
+		$("#prodPrice,#prodId,#prodName,#prodBrand,#prodBrand, #prodSize").val("");
 		modal.hide();
 	})
 	
@@ -42,8 +42,9 @@ $(document).ready(function(){
 			let msg = checkFormDataValue();
 			if(msg == '成功提交表單!'){				
 				let prodId = $("#prodId").val();
-				$(".modal form").attr("action","".concat("/products","/" +　prodId))
-								.attr("method","put");
+				$(".modal form").attr("action","".concat("/updateProduct","/" +　prodId))
+								.attr("method","post");
+				$(".modal form").submit();
 			}else{
 				alert(msg);
 			}

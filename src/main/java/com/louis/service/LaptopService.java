@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dto.SearchQuery;
@@ -22,4 +23,6 @@ public interface LaptopService {
 	public abstract List<Laptop> getProducts(SearchQuery query);
 	
 	public abstract void createProduct(Map<String, Object> params, MultipartFile file) throws IOException;
+	
+	public abstract void updateProductById(Map<String, Object> params, String id, MultipartFile file);
 }

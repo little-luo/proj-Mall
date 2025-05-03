@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
-import com.louis.module.Spec;
 import com.louis.service.LaptopService;
 
 @Service
@@ -49,8 +48,12 @@ public class LaptopServiceImpl implements LaptopService {
 	public void createProduct(Map<String, Object> params, MultipartFile file) throws IOException {
 		dao.createProduct(params,file);
 	}
-	
-	
-	
+
+	@Override
+	public void updateProductById(Map<String, Object> params, String id, MultipartFile file) {
+		Laptop laptop = dao.getLaptopById(Integer.valueOf(id));
+		
+		dao.updateProductById(params,id,file,laptop);
+	}
 	
 }

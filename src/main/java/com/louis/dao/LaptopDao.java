@@ -23,4 +23,6 @@ public interface LaptopDao {
 	public abstract List<Laptop> getProducts(SearchQuery query);
 	
 	public abstract void createProduct(Map<String, Object> params,MultipartFile file) throws IOException;
+	
+	public abstract void updateProductById(Map<String, Object> params, String id, MultipartFile file, Laptop laptop);
 }

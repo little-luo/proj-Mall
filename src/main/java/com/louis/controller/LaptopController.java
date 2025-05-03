@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -99,11 +100,19 @@ public class LaptopController {
 	}
 	
 	@PostMapping("/createProduct")
-	public ResponseEntity<List<Laptop>> createProduct(@RequestParam Map<String, Object> params, @RequestParam("prodImg") MultipartFile file) throws IOException{
+	public ResponseEntity<String> createProduct(@RequestParam Map<String, Object> params, @RequestParam("prodImg") MultipartFile file) throws IOException{
 		
 		laptopService.createProduct(params,file);
 		
-		return null;
+		return ResponseEntity.status(HttpStatus.CREATED).body("<script>window.location.href='/admin';</script>");
 		
+	}
+	
+	@PostMapping("/updateProduct/{id}")
+	public ResponseEntity<String> updateProdcutById(@RequestParam Map<String, Object> params,@PathVariable String id, @RequestParam("prodImg") MultipartFile file) {
+		
+		laptopService.updateProductById(params,id,file);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("<script>window.location.href='/admin';</script>");
 	}
 }

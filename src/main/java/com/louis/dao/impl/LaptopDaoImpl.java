@@ -1,13 +1,17 @@
 package com.louis.dao.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
 import com.louis.module.Laptop;
-import com.louis.module.Spec;
 import com.louis.rowmapper.LaptopRowMapper;
 
 @Repository
@@ -26,7 +29,7 @@ public class LaptopDaoImpl implements LaptopDao {
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
-	
+	private final static Logger log = LoggerFactory.getLogger(LaptopDaoImpl.class);
 	@Override
 	public Laptop getLaptopById(Integer laptopId) {
 		
@@ -141,6 +144,7 @@ public class LaptopDaoImpl implements LaptopDao {
 		map.put("brand", (String)params.get("prodBrand"));
 		map.put("os", (String)params.get("prodOS"));
 		map.put("size", (String)params.get("prodSize"));
+		// 上傳圖片
 		try {
 			String IMAGE_DIRECTORY = new ClassPathResource("/static/images/").getFile().getAbsolutePath();
 			//System.out.println("IMAGE_DIRECTORY:" + IMAGE_DIRECTORY);
@@ -152,7 +156,86 @@ public class LaptopDaoImpl implements LaptopDao {
 		namedParameterJdbcTemplate.update(sql, map);
 		
 	}
+
+	@Override
+	public void updateProductById(Map<String, Object> params, String id, MultipartFile file, Laptop laptop) {
+		StringBuilder sb = new StringBuilder("update laptop set ");
+		List<String> sets = new ArrayList<String>();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		String laptopId = (String)params.get("prodId");
+		if(params.containsKey("prodId")) {
+			sets.add("laptop_id = :laptopId");
+			map.put("laptopId", laptopId);
+		}
+		
+		if(params.containsKey("prodName")) {
+			sets.add("laptop_name = :laptopName");
+			String laptopName = (String)params.get("prodName");
+			map.put("laptopName", laptopName);
+		}
+		
+		if(params.containsKey("prodBrand")) {
+			sets.add("brand = :brand");
+			String brand = (String)params.get("prodBrand");
+			map.put("brand", brand);
+		}
+		
+		if(params.containsKey("prodPrice")) {
+			sets.add("price = :price");
+			String price = (String)params.get("prodPrice");
+			map.put("price", price);
+		}
+		
+		if(params.containsKey("prodOS")) {
+			sets.add("os = :os");
+			String os = (String)params.get("prodOS");
+			map.put("os", os);
+		}
+		
+		if(params.containsKey("prodSize")) {
+			sets.add("size = :size");
+			String size = (String)params.get("prodSize");
+			map.put("size", size);
+		}
+		
+		sets.add("image_url = :imgUrl");
+		map.put("imgUrl", "/images/" + file.getOriginalFilename());
+		String imgUrl = laptop.getImageUrl();
+		deleteImage(imgUrl);
+		
+		
+		String path;
+		try {
+			path = new ClassPathResource("/static/images").getFile().getAbsolutePath();
+			Files.write(Paths.get(path, file.getOriginalFilename()), file.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+			if(e instanceof FileNotFoundException) {
+				log.info("路徑為/static/imagees資料夾不存在");
+			}
+		}
+		
+		sb.append(String.join(", ", sets));
+		sb.append(" where laptop_id = :laptopId");
+		
+		String sql = sb.toString();
+		namedParameterJdbcTemplate.update(sql, map);
+		
+	}
 	
-	
-	
+	public void deleteImage(String imgUrl) {
+		try {
+			File deleteFile = new ClassPathResource("/static" + imgUrl).getFile();
+//			System.out.println(new ClassPathResource("/static" + imgUrl).getFile().getAbsolutePath());
+			deleteFile.delete();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			if(e instanceof FileNotFoundException) {
+				log.info("欲刪除的圖片路徑 {} 不存在",imgUrl);
+			}	
+		}
+	}
 }
