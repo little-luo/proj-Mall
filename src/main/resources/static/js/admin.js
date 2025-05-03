@@ -62,6 +62,26 @@ $(document).ready(function(){
 			}			
 		}
 	})
+	
+	$("tbody").on("click",".btn-danger",function(){
+		if(confirm('確認刪除?')){
+			let id = $(this).parents("tr").find("td:first-child").text();
+			console.log(id);
+			
+			$(this).parents("tr").fadeOut(1000).remove();
+			$.ajax({
+				url:"/deleteProduct/" + id,
+				type:"get",
+				success:function(res){
+					alert(res);
+				},
+				error:function(err){
+					alert(err);
+				}
+				
+			})
+		}
+	})
 })
 
 function checkFormDataValue(){

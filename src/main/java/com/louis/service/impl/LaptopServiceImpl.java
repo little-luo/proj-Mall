@@ -55,5 +55,12 @@ public class LaptopServiceImpl implements LaptopService {
 		
 		dao.updateProductById(params,id,file,laptop);
 	}
+
+	@Override
+	public void deleteProductById(String id) {
+		dao.deleteProductById(id);
+	}
+	
+	
 	
 }

@@ -113,6 +113,14 @@ public class LaptopController {
 		
 		laptopService.updateProductById(params,id,file);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body("<script>window.location.href='/admin';</script>");
+		return ResponseEntity.status(HttpStatus.OK).body("<script>window.location.href='/admin';</script>");
+	}
+	
+	@GetMapping("/deleteProduct/{id}")
+	public ResponseEntity<String> deleteProductById(@PathVariable String id){
+
+		laptopService.deleteProductById(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("刪除成功");
 	}
 }

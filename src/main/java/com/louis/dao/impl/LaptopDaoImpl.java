@@ -34,7 +34,7 @@ public class LaptopDaoImpl implements LaptopDao {
 	public Laptop getLaptopById(Integer laptopId) {
 		
 		String sql = "select laptop_id, laptop_name, price, image_url, brand, os, size "
-				   + "from laptop where laptop_id = :laptopId";
+				   + "from laptop where laptop_id = :laptopId and state != 'd'";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("laptopId", laptopId);
@@ -52,7 +52,8 @@ public class LaptopDaoImpl implements LaptopDao {
 	public List<Laptop> getLaptops() {
 		
 		String sql = "select laptop_id, laptop_name, price, image_url, brand, os, size "
-				   + "from laptop";
+				   + "from laptop "
+				   + "where state != 'd' or state is null";
 				
 		List<Laptop> laptopList = namedParameterJdbcTemplate.query(sql, new LaptopRowMapper());
 		
@@ -238,4 +239,16 @@ public class LaptopDaoImpl implements LaptopDao {
 			}	
 		}
 	}
+
+	@Override
+	public void deleteProductById(String id) {
+		String sql = "update laptop set state = 'd' "
+				   + "where laptop_id = :id";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
+		namedParameterJdbcTemplate.update(sql, map);
+	}
+	
 }
