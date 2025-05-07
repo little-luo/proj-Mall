@@ -38,4 +38,16 @@ td:has(button) td{
 :where(thead) th:nth-of-type(2){
 	width:150px;
 }
+:where(.right_block) span{
+	user-select:none;
+	font-weight:700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+}
+
+:where(.right_block) button{
+	width:fit-content;
+}
 

@@ -123,4 +123,20 @@ public class LaptopController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body("刪除成功");
 	}
+	
+	@GetMapping("/getPageTotal")
+	public ResponseEntity<String> getPageTotal(){
+		Integer size = laptopService.getLaptops().size();
+		
+		Integer pageTotal = null;
+		if(size <= 10) {
+			pageTotal = 1;
+		}
+		
+		if(size > 10) {
+			pageTotal = size / 10 + 1;
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(pageTotal));
+	}
 }

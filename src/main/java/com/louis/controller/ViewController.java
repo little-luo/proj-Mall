@@ -66,10 +66,23 @@ public class ViewController {
 	}
 	
 	@GetMapping("/admin")
-	public String admin(Model model) {
-		
+	public String admin(Model model,@RequestParam(required = false,defaultValue = "0") Integer offset) {
+				
+		Integer startIndex = null,endIndex = null;
+		if(offset == 0) {				
+			startIndex = 0;
+			endIndex = 10;
+		}else {
+			startIndex = offset;
+			endIndex = startIndex + 10;
+		}
 		List<Laptop> laptopList = laptopService.getLaptops();
-		model.addAttribute("laptops", laptopList);
+		try {			
+			model.addAttribute("laptops", laptopList.subList(startIndex, endIndex));
+		} catch (Exception e) {
+			//e.printStackTrace();
+			model.addAttribute("laptops", laptopList.subList(startIndex,laptopList.size()));
+		}
 		return "admin";
 	}
 

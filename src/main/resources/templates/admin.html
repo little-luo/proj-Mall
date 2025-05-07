@@ -13,9 +13,24 @@
 <link th:href="@{/css/admin.css}" rel="stylesheet" />
 </head>
 <body class="bg-dark-subtle">
-	<nav class="navbar bg-dark border-bottom border-body justify-content-end mb-5 px-4" data-bs-theme="dark">
-		<span class="mr-6">管理員</span>
+	<nav class="navbar bg-dark mb-5 px-4 py-3 position-relative" data-bs-theme="dark">
+		<div class="items d-flex">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+		  			<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class="d-flex position-absolute top-50 end-0 translate-middle right_block">
+				<button type="button" class="btn btn-dark">登出</button>
+				<span class="mr-6">管理員</span>
+			</div>
+		</div>
 	</nav>
+	<div class="collapse position-relative" style="top:-48px;" id="navbarToggleExternalContent" data-bs-theme="dark">
+		<div class="bg-dark p-4">
+		  <a class="link-offset-1" href="/admin">商品管理</a>
+		</div>
+	</div>
 	<div class="container mb-4 top_block">
 		<span class="text-start fs-2 align-middle mr-4">商品列表</span>
 		<button type="button" class="btn btn-primary align-middle" data-bs-toggle="modal" data-bs-target="#new">新增商品</button>
@@ -37,7 +52,7 @@
 		  <tbody>
 		    <tr th:each="laptop : ${laptops}">
 		      <td th:text="${laptop.laptopId}"></td>
-		      <td><img src="imageUrl" th:attr="src = ${laptop.imageUrl}" alt="無圖片"></td>
+			  <td><img class="lazyImg" src="imageUrl" data-src="" th:attr="data-src = ${laptop.imageUrl}" alt="無圖片"></td>
 		      <td th:text="${laptop.laptopName}"></td>
 		      <td th:text="${laptop.brand}"></td>
 		      <td th:text="${laptop.price}"></td>
@@ -56,9 +71,9 @@
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	    </li>
-	    <li class="page-item"><a class="page-link" href="#">1</a></li>
-	    <li class="page-item"><a class="page-link" href="#">2</a></li>
-	    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	    <li class="page-item"><a class="page-link" href="/admin?offset=0">1</a></li>
+	    <li class="page-item"><a class="page-link" href="/admin?offset=10">2</a></li>
+	    <li class="page-item"><a class="page-link" href="/admin?offset=20">3</a></li>
 	    <li class="page-item">
 	      <a class="page-link" href="#" aria-label="Next">
 	        <span aria-hidden="true">&raquo;</span>

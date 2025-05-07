@@ -1,6 +1,30 @@
 
 $(document).ready(function(){
 	
+	$.ajax({
+		url:'/getPageTotal',
+		type:'get',
+		success:function(res){
+			console.log(res);
+			let pageItem = $("ul.pagination li.page-item").slice(1,4);
+			let pageItemLength = pageItem.length;
+//			console.log(pageItem.slice(1,4));
+			if(res < pageItemLength){
+				for(i = 0; i < pageItemLength - res; i++){
+					pageItem.slice(-(pageItemLength - res)).remove();
+				}
+			}
+			if(res >= pageItemLength){
+				pageItem.eq(3).on("click",function(){
+					let lastPage = $(this).text();
+					pageItem.eq(1).attr("href","/admin?offset=" + (lastPage - 1) * 10).text(lastPage);
+					pageItem.eq(2).attr("href","/admin?offset=" + (lastPage) * 10).text(lastPage + 1);
+					pageItem.eq(3).attr("href","/admin?offset=" + (lastPage + 1) * 10).text(lastPage + 2);
+				})
+			}
+		}
+	})
+	
 	addModal();
 		
 	const modal = new bootstrap.Modal(document.querySelector(".modal"));
@@ -81,6 +105,27 @@ $(document).ready(function(){
 				
 			})
 		}
+	})
+	const option = {
+		root:null,
+		rootMargin:"100px 0px 0px 0px",
+		threshold:[0],
+	}
+	
+	const observer = new IntersectionObserver(entries => {
+		entries.forEach(image => {
+			if(image.isIntersecting){
+				//console.log(image.target.getAttribute('data-src'));
+				// 將data-src 的 屬性 指定給 src屬性
+				image.target.setAttribute('src',image.target.getAttribute('data-src'));
+				observer.unobserve(image.target);
+			}
+		})
+	},option);
+	
+	const all_img = $("tbody img");
+	all_img.each(function(index,item){
+		observer.observe(item);
 	})
 })
 
