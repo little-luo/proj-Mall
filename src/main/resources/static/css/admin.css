@@ -51,3 +51,10 @@ td:has(button) td{
 	width:fit-content;
 }
 
+:where(nav.bottom_block) ul{
+	margin:0px;
+}
+:where(nav.bottom_block) {
+	bottom:20px;
+}
+

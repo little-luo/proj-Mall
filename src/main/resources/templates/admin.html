@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 我的css -->
 <link th:href="@{/css/admin.css}" rel="stylesheet" />
+<link th:href="@{/css/loading.css}" rel="stylesheet" />
 </head>
 <body class="bg-dark-subtle">
 	<nav class="navbar bg-dark mb-5 px-4 py-3 position-relative" data-bs-theme="dark">
@@ -52,7 +53,7 @@
 		  <tbody>
 		    <tr th:each="laptop : ${laptops}">
 		      <td th:text="${laptop.laptopId}"></td>
-			  <td><img class="lazyImg" src="imageUrl" data-src="" th:attr="data-src = ${laptop.imageUrl}" alt="無圖片"></td>
+			  <td><img class="lazyImg" src="" data-src="" th:attr="data-src = ${laptop.imageUrl}" alt="無圖片"></td>
 		      <td th:text="${laptop.laptopName}"></td>
 		      <td th:text="${laptop.brand}"></td>
 		      <td th:text="${laptop.price}"></td>
@@ -81,6 +82,8 @@
 	    </li>
 	  </ul>
 	</nav>
+	<div th:insert="~{shared::loading}" class="loading_box"></div>
 	<script src="/js/admin.js"></script>
+	<script th:replace="~{shared::getBodyHeight}"></script>
 </body>
 </html>
