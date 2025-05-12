@@ -5,10 +5,10 @@ $(document).ready(function(){
 		url:'/getPageTotal',
 		type:'get',
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			let pageItem = $("ul.pagination li.page-item").slice(1,4);
 			let pageItemLength = pageItem.length;
-//			console.log(pageItem.slice(1,4));
+			//console.log(pageItem.slice(1,4));
 			if(res < pageItemLength){
 				for(i = 0; i < pageItemLength - res; i++){
 					pageItem.slice(-(pageItemLength - res)).remove();
@@ -17,11 +17,31 @@ $(document).ready(function(){
 			if(res >= pageItemLength){
 				pageItem.eq(3).on("click",function(){
 					let lastPage = $(this).text();
-					pageItem.eq(1).attr("href","/admin?offset=" + (lastPage - 1) * 10).text(lastPage);
-					pageItem.eq(2).attr("href","/admin?offset=" + (lastPage) * 10).text(lastPage + 1);
-					pageItem.eq(3).attr("href","/admin?offset=" + (lastPage + 1) * 10).text(lastPage + 2);
+					pageItem.eq(1).find('a').attr("href","/admin?offset=" + (lastPage - 1) * 10).text(lastPage);
+					pageItem.eq(2).find('a').attr("href","/admin?offset=" + (lastPage) * 10).text(lastPage + 1);
+					pageItem.eq(3).find('a').attr("href","/admin?offset=" + (lastPage + 1) * 10).text(lastPage + 2);
 				})
 			}
+			
+		 	const param = new URLSearchParams(window.location.search);
+			const currentOffset = param.get('offset');
+			let currentPage = currentOffset / 10 + 1;
+			//console.log(currentOffset);
+			
+			const previous = $('ul.pagination li.page-item a').first();
+			if(currentOffset == 0){
+				previous.attr("href","/admin?offset=" + (currentOffset));				
+			}else{				
+				previous.attr("href","/admin?offset=" + (parseInt(currentOffset) - 10));
+			}
+			let lastPage = res;
+			const next = $('ul.pagination li.page-item a').last();
+			if(lastPage	> currentPage){				
+				next.attr("href","/admin?offset=" + (parseInt(currentOffset) + 10));
+			}else{
+				next.attr("href","/admin?offset=" + currentOffset);
+			}
+			
 		}
 	})
 	
