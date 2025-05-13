@@ -75,7 +75,7 @@
 		  <tbody>
 		    <tr th:each="laptop : ${laptops}">
 		      <td th:text="${laptop.laptopId}"></td>
-			  <td><img class="lazyImg" src="" data-src="" th:attr="data-src = ${laptop.imageUrl}" alt="無圖片"></td>
+			  <td><img class="lazyImg" src="" data-src="" id="" th:attr="data-src = ${laptop.imageUrl},id = ${laptop.laptopId}" alt="無圖片"></td>
 		      <td th:text="${laptop.laptopName}"></td>
 		      <td th:text="${laptop.brand}"></td>
 		      <td th:text="${laptop.price}"></td>

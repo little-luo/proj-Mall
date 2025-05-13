@@ -7,7 +7,7 @@ $(document).ready(function(){
 		url:url,
 		type:'get',
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			let pageItem = $("ul.pagination li.page-item").slice(1,4);
 			let pageItemLength = pageItem.length;
 			
@@ -190,7 +190,27 @@ $(document).ready(function(){
 	all_img.each(function(index,item){
 		observer.observe(item);
 	})
+	
 })
+
+$(window).on("load",function(){
+	// 圖片全螢幕
+	$("tbody img").on("click",function(){
+		let element = $(this).get(0);
+		fullScreen(element);
+	})
+})
+
+function fullScreen(element){
+	// 判斷是否有進入全螢幕的元素
+	if(!document.fullscreenElement){
+		// 進入全螢幕
+		element.requestFullscreen();
+	}else{
+		// 退出全螢幕
+		document.exitFullscreen();
+	}
+}
 
 function checkFormDataValue(){
 	let msg = "";
