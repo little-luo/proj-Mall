@@ -34,7 +34,29 @@
 	</div>
 	<div class="container mb-4 top_block">
 		<span class="text-start fs-2 align-middle mr-4">商品列表</span>
-		<button type="button" class="btn btn-primary align-middle" data-bs-toggle="modal" data-bs-target="#new">新增商品</button>
+		<button type="button" class="btn btn-primary align-middle mx-3" data-bs-toggle="modal" data-bs-target="#new">新增商品</button>
+		<div class="sorting position-absolute top-50 end-0 translate-middle-y d-inline-flex p-2 column-gap-4 mx-1">
+			<div id="price_sorting">
+				<form method="get" action="/admin">
+					<span class="align-middle fs-3 mx-2">價格</span>
+					<select class="form-select-sm">
+						<option selected>請選擇</option>
+						<option value="desc">價格由高到低</option>
+						<option value="asc">價格由低到高</option>
+					</select>
+				</form>
+			</div>
+			<div id="id_sorting">
+				<form method="get" action="/admin">
+					<span class="align-middle fs-3 mx-2">編號</span>
+					<select class="form-select-sm">
+						<option selected>請選擇</option>
+						<option value="desc">編號由高到低</option>
+						<option value="asc">編號由低到高</option>
+					</select>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="container mb-4 middle_block">	
 		<table class="table table-bordered table-hover mb-5">

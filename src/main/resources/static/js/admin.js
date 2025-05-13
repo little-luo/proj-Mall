@@ -1,13 +1,20 @@
-
 $(document).ready(function(){
-	
+	const param = new URLSearchParams(window.location.search);
+	let orderBy = param.get('orderBy') || 'laptop_id';
+	let sort = param.get('sort') || 'asc';  
+	let url = '/getPageTotal?orderBy=' + orderBy +'&sort=' + sort;          
 	$.ajax({
-		url:'/getPageTotal',
+		url:url,
 		type:'get',
 		success:function(res){
-			//console.log(res);
+			console.log(res);
 			let pageItem = $("ul.pagination li.page-item").slice(1,4);
 			let pageItemLength = pageItem.length;
+			
+			for(i = 0; i < pageItemLength; i++){
+				let offset = i * 10;
+				pageItem.eq(i).find('a').attr('href',`/admin?offset=${offset}&orderBy=${orderBy}&sort=${sort}`);
+			}
 			//console.log(pageItem.slice(1,4));
 			if(res < pageItemLength){
 				for(i = 0; i < pageItemLength - res; i++){
@@ -17,9 +24,9 @@ $(document).ready(function(){
 			if(res >= pageItemLength){
 				pageItem.eq(3).on("click",function(){
 					let lastPage = $(this).text();
-					pageItem.eq(1).find('a').attr("href","/admin?offset=" + (lastPage - 1) * 10).text(lastPage);
-					pageItem.eq(2).find('a').attr("href","/admin?offset=" + (lastPage) * 10).text(lastPage + 1);
-					pageItem.eq(3).find('a').attr("href","/admin?offset=" + (lastPage + 1) * 10).text(lastPage + 2);
+					pageItem.eq(1).find('a').attr("href","/admin?offset=" + (lastPage - 1) * 10 + '&orderBy=' + orderBy +'&sort=' + sort).text(lastPage);
+					pageItem.eq(2).find('a').attr("href","/admin?offset=" + (lastPage) * 10  + '&orderBy=' + orderBy +'&sort=' + sort).text(lastPage + 1);
+					pageItem.eq(3).find('a').attr("href","/admin?offset=" + (lastPage + 1) * 10  + '&orderBy=' + orderBy +'&sort=' + sort).text(lastPage + 2);
 				})
 			}
 			
@@ -30,19 +37,55 @@ $(document).ready(function(){
 			
 			const previous = $('ul.pagination li.page-item a').first();
 			if(currentOffset == 0){
-				previous.attr("href","/admin?offset=" + (currentOffset));				
+				previous.attr("href","/admin?offset=" + (currentOffset)  + '&orderBy=' + orderBy +'&sort=' + sort);				
 			}else{				
-				previous.attr("href","/admin?offset=" + (parseInt(currentOffset) - 10));
+				previous.attr("href","/admin?offset=" + (parseInt(currentOffset) - 10)  + '&orderBy=' + orderBy +'&sort=' + sort);
 			}
 			let lastPage = res;
 			const next = $('ul.pagination li.page-item a').last();
 			if(lastPage	> currentPage){				
-				next.attr("href","/admin?offset=" + (parseInt(currentOffset) + 10));
+				next.attr("href","/admin?offset=" + (parseInt(currentOffset) + 10)  + '&orderBy=' + orderBy +'&sort=' + sort);
 			}else{
-				next.attr("href","/admin?offset=" + currentOffset);
+				next.attr("href","/admin?offset=" + currentOffset + '&orderBy=' + orderBy +'&sort=' + sort);
 			}
 			
 		}
+	})
+	
+	$("#price_sorting select").on("change",function(){
+		let selected_value = $(this).val();
+		console.log(selected_value);
+		orderBy = 'price';
+		let url = '/admin?orderBy=price';
+		if(selected_value == 'asc'){
+			sort = 'asc'			
+			url = '/admin?offset=0&orderBy=price&sort=' + selected_value;   
+		}else if(selected_value == 'desc'){
+			sort = 'desc';
+			url = '/admin?offset=0&orderBy=price&sort=' + selected_value;  
+		}else{
+			url = '/admin?offset=0';
+		}
+		console.log(url);
+		window.location.href = url;
+	})
+	
+	$("#id_sorting select").on("change",function(){
+		let selected_value = $(this).val();
+		console.log(selected_value);
+		orderBy = 'laptop_id';
+		let url = '/admin?orderBy=laptop_id';
+		if(selected_value == 'asc'){
+			sort = 'asc'			
+			url = '/admin?offset=0&orderBy=laptop_id&sort=' + selected_value;   
+		}else if(selected_value == 'desc'){
+			sort = 'desc';
+			url = '/admin?offset=0&orderBy=laptop_id&sort=' + selected_value;  
+		}else{
+			url = '/admin?offset=0';
+		}
+		console.log(url);
+		window.location.href = url;
 	})
 	
 	addModal();

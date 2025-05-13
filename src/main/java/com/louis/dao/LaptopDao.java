@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dto.SearchQuery;
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.module.Spec;
 
@@ -14,7 +15,7 @@ public interface LaptopDao {
 	
 	public abstract Laptop getLaptopById(Integer laptopId);
 	
-	public abstract List<Laptop> getLaptops();
+	public abstract List<Laptop> getLaptops(SortQuery sortQuery);
 	
 	public abstract List<String> getSpecByLaptopId(Integer laptopId);
 	

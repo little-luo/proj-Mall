@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.service.LaptopService;
 
@@ -25,8 +26,8 @@ public class LaptopServiceImpl implements LaptopService {
 	}
 
 	@Override
-	public List<Laptop> getLaptops() {
-		return dao.getLaptops();
+	public List<Laptop> getLaptops(SortQuery sortQuery) {
+		return dao.getLaptops(sortQuery);
 	}
 
 	@Override

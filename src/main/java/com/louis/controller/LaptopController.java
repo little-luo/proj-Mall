@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.louis.dto.SearchQuery;
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.service.LaptopService;
 
@@ -52,7 +53,7 @@ public class LaptopController {
 	@GetMapping("/laptops")
 	public ResponseEntity<List<Laptop>> getLaptops(){
 		
-		List<Laptop> laptopList = laptopService.getLaptops();
+		List<Laptop> laptopList = laptopService.getLaptops(null);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(laptopList);
 	}
@@ -60,7 +61,7 @@ public class LaptopController {
 	@GetMapping("/home")
 	public String home(Model model) {
 		
-		List<Laptop> laptopList = laptopService.getLaptops();
+		List<Laptop> laptopList = laptopService.getLaptops(null);
 
 		model.addAttribute("laptops", laptopList);
 		
@@ -125,8 +126,14 @@ public class LaptopController {
 	}
 	
 	@GetMapping("/getPageTotal")
-	public ResponseEntity<String> getPageTotal(){
-		Integer size = laptopService.getLaptops().size();
+	public ResponseEntity<String> getPageTotal(@RequestParam(required = false,defaultValue = "laptop_id") String orderBy,
+											   @RequestParam(required = false,defaultValue = "asc") String sort){
+		
+		SortQuery sortQuery = new SortQuery();
+		sortQuery.setOrderBy(orderBy);
+		sortQuery.setSort(sort);
+		
+		Integer size = laptopService.getLaptops(sortQuery).size();
 		
 		Integer pageTotal = null;
 		if(size <= 10) {
@@ -139,4 +146,17 @@ public class LaptopController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(pageTotal));
 	}
+	
+	//@GetMapping("/products")
+//	public List<Laptop> getProducts(@RequestParam(defaultValue = "id") String orderBy, 
+//									@RequestParam(defaultValue = "asce") String sort){
+//		
+//		SortQuery sortQuery = new SortQuery();
+//		sortQuery.setOrderBy(orderBy);
+//		sortQuery.setSort(sort);
+//		
+//		List<Laptop> laptopList = laptopService.getLaptops(sortQuery);
+//		
+//		return laptopList;
+//	}
 }

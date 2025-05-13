@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.louis.dao.LaptopDao;
 import com.louis.dto.SearchQuery;
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.rowmapper.LaptopRowMapper;
 
@@ -34,7 +35,7 @@ public class LaptopDaoImpl implements LaptopDao {
 	public Laptop getLaptopById(Integer laptopId) {
 		
 		String sql = "select laptop_id, laptop_name, price, image_url, brand, os, size "
-				   + "from laptop where laptop_id = :laptopId and state != 'd'";
+				   + "from laptop where laptop_id = :laptopId and (state != 'd' or state is null)";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("laptopId", laptopId);
@@ -49,12 +50,24 @@ public class LaptopDaoImpl implements LaptopDao {
 	}
 
 	@Override
-	public List<Laptop> getLaptops() {
+	public List<Laptop> getLaptops(SortQuery sortQuery) {
 		
 		String sql = "select laptop_id, laptop_name, price, image_url, brand, os, size "
 				   + "from laptop "
-				   + "where state != 'd' or state is null";
-				
+				   + "where state != 'd' or state is null "
+				   + "order by";
+		
+		String orderBy;
+		String sort;
+		if(sortQuery == null) {
+			orderBy = "laptop_id";
+			sort = "asc";
+		}else {
+			orderBy = sortQuery.getOrderBy();
+			sort = sortQuery.getSort();
+		}
+		// order by 與 sort 不能使用動態參數綁定的方式
+		sql = sql + " " + orderBy + " " + sort;
 		List<Laptop> laptopList = namedParameterJdbcTemplate.query(sql, new LaptopRowMapper());
 		
 		return laptopList;
