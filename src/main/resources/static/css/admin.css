@@ -58,3 +58,17 @@ td:has(button) td{
 	bottom:20px;
 }
 
+nav.navbar{
+	& #logout{
+		outline: none;
+	    background: none;
+	    border: none;
+	}
+}
+
+#logout{
+	outline: none;
+    background: none;
+    border: none;
+}
+

@@ -169,6 +169,10 @@ $(document).ready(function(){
 			})
 		}
 	})
+	
+	$(".navbar #logout").on("click",function(){
+		window.location.href = '/home';
+	})
 	const option = {
 		root:null,
 		rootMargin:"100px 0px 0px 0px",
