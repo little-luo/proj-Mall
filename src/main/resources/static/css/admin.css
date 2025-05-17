@@ -72,3 +72,60 @@ nav.navbar{
     border: none;
 }
 
+:where(.container) table {
+	table-layout:fixed;
+	& thead tr th:first-child{
+		width:10%;
+	}
+	
+	& thead tr th:nth-child(2){
+		width:auto;
+	}
+	
+	& thead tr th:nth-child(3){
+		width:20%;
+	}
+	
+	& thead tr th:nth-child(4){
+		width:7.5%;
+	}
+	
+	& thead tr th:nth-child(5){
+		width:7.5%;
+	}
+	
+	& thead tr th:nth-child(6){
+		width:auto;
+	}
+}
+
+ul#specList{
+	& li.specItem{
+		list-style-type:none;
+		transition:all 1.5s;
+	}
+	
+	& li.specItem.hidden{
+		opacity:0;
+	}
+	
+	& span{
+		border-bottom:1px solid black;
+		max-width: 390px;
+	}
+	
+	& li.specItem input{
+		border-top-color:transparent;
+		border-left-color:transparent;
+		border-right-color:transparent;
+		outline:none;
+		border-bottom:1px solid black;
+	}
+}
+
+#deleteAll_btn{
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+}
+

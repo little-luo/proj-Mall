@@ -28,4 +28,6 @@ public interface LaptopService {
 	public abstract void updateProductById(Map<String, Object> params, String id, MultipartFile file);
 	
 	public abstract void deleteProductById(String id);
+	
+	public abstract void createSpecItmes(String laptopId ,List<String> specList);
 }

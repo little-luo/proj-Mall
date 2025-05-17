@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.expression.Lists;
 
 import com.louis.dto.SearchQuery;
 import com.louis.dto.SortQuery;
@@ -147,16 +148,16 @@ public class LaptopController {
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(pageTotal));
 	}
 	
-	//@GetMapping("/products")
-//	public List<Laptop> getProducts(@RequestParam(defaultValue = "id") String orderBy, 
-//									@RequestParam(defaultValue = "asce") String sort){
-//		
-//		SortQuery sortQuery = new SortQuery();
-//		sortQuery.setOrderBy(orderBy);
-//		sortQuery.setSort(sort);
-//		
-//		List<Laptop> laptopList = laptopService.getLaptops(sortQuery);
-//		
-//		return laptopList;
-//	}
+	@PostMapping("/addSpecs")
+	public ResponseEntity<String> getProducts(@RequestParam(required = true) String laptopId, 
+							@RequestParam(required = false,name = "spec") List<String> allSpecs){
+		
+		laptopService.createSpecItmes(laptopId,allSpecs);
+		return ResponseEntity.status(HttpStatus.OK).body("<script>window.location.href='/admin';</script>");
+	}
+	
+	@GetMapping("/laptops/{laptopId}/specs")
+	public ResponseEntity<List<String>> getlaptopSpecsById(@PathVariable Integer laptopId){
+		return ResponseEntity.status(HttpStatus.OK).body(laptopService.getSpecByLaptopId(laptopId));
+	}
 }

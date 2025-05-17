@@ -32,6 +32,9 @@ $(document).ready(function(){
 			
 		 	const param = new URLSearchParams(window.location.search);
 			const currentOffset = param.get('offset');
+			if(currentOffset === undefined){
+				currentOffset = 0;
+			}
 			let currentPage = currentOffset / 10 + 1;
 			//console.log(currentOffset);
 			
@@ -90,9 +93,9 @@ $(document).ready(function(){
 	
 	addModal();
 		
-	const modal = new bootstrap.Modal(document.querySelector(".modal"));
+	const modal = new bootstrap.Modal(document.querySelector(".editAndNew"));
 	$(".top_block").on("click",".btn-primary",function(){
-		$(".modal").attr("id","new");
+		$(".editAndNew").attr("id","new");
 		modal.show();
 	})
 
@@ -102,20 +105,20 @@ $(document).ready(function(){
 		let prodName = $(this).parents("tr").find("td").eq(2).text();
 		let prodBrand = $(this).parents("tr").find("td").eq(3).text();
 		let prodPrice = $(this).parents("tr").find("td").eq(4).text();
-		let prodSize = $(this).parents("tr").find("td").eq(8).text();
-		
-	//	console.log($(this).parents("tr").find("td").eq(0).text());
+		let prodSize = $(this).parents("tr").find("td").eq(9).text();
+	
+		//	console.log($(this).parents("tr").find("td").eq(0).text());
 		$("#prodPrice").val(prodPrice);
 		$("#prodId").val(prodId);
 		$("#prodName").val(prodName);
 		$("#prodBrand").val(prodBrand);
 		$("#prodSize").val(prodSize);
 		
-		$(".modal").attr("id","edit");
+		$(".editAndNew").attr("id","edit");
 		modal.show();
 	})
 	
-	$(".btn-close").on("click",function(){
+	$(".editAndNew .btn-close").on("click",function(){
 		$("#prodPrice,#prodId,#prodName,#prodBrand,#prodBrand, #prodSize").val("");
 		modal.hide();
 	})
@@ -123,15 +126,15 @@ $(document).ready(function(){
 	$('.modal-footer button[type="submit"]').on("click",function(e){
 		e.originalEvent.preventDefault();
 		
-		let id = $(".modal").attr("id");
+		let id = $(".editAndNew").attr("id");
 		
 		if(id == 'edit'){
 			let msg = checkFormDataValue();
 			if(msg == '成功提交表單!'){				
 				let prodId = $("#prodId").val();
-				$(".modal form").attr("action","".concat("/updateProduct","/" +　prodId))
+				$(".editAndNew form").attr("action","".concat("/updateProduct","/" +　prodId))
 								.attr("method","post");
-				$(".modal form").submit();
+				$(".editAndNew form").submit();
 			}else{
 				alert(msg);
 			}
@@ -141,9 +144,9 @@ $(document).ready(function(){
 			let msg = checkFormDataValue();
 			
 			if(msg == "成功提交表單!"){
-				$(".modal form").attr("action","".concat("/createProduct"))
+				$(".editAndNew form").attr("action","".concat("/createProduct"))
 								.attr("method","post");
-				$(".modal form").submit();
+				$(".editAndNew form").submit();
 			}else{
 				alert(msg);
 			}			
@@ -195,6 +198,71 @@ $(document).ready(function(){
 		observer.observe(item);
 	})
 	
+	// 新增規格
+	$("#addSpecBtn").on("click",function(){
+		let spec = $("#specInput").val().trim();
+		if(spec === ''){
+			return;
+		}else{
+			let li = `<li class="specItem d-flex align-items-center mb-3"><span class="flex-grow-1 me-3  d-flex align-items-center">${spec}</span></li>`;
+			$("ul#specList").append(li);
+			
+			let removeBtn = '<button type="button" class="removeBtn btn btn-danger">刪除</button>'
+			$("ul#specList li").last().append(removeBtn);
+			
+			let input = `<input type="hidden" name="spec" value="${spec}" />`;
+			$("#specForm").append(input);
+			$("#specInput").val("");
+			
+		}
+	})
+	// 按下關閉按鈕清除節點
+	$("#specModal .btn-close").on("click",function(){
+		deleteAllSpec();
+	})
+	// 製作淡出效果
+	$("#specModal").on("click","li.specItem button",function(){
+		let li = $(this).parents("li");
+		li.addClass("hidden");
+		setTimeout(function(){
+			$("form#specForm input").eq($("ul#specList li").index(li) + 1).remove();
+			li.remove();
+		},1500);
+	})
+	
+	// 文字 切換 輸入框
+	$("#specModal").on("click","li.specItem span",function(){
+		let text = $(this).text();
+		let input = `<input type="text" class="flex-grow-1 me-3 d-flex align-items-center" value="${text}">`;
+		let li = $(this).parent();
+		$(this).replaceWith(input);
+		li.children("input").focus();
+	})
+	// 輸入框 切換 文字
+	$("#specModal").on("blur","li.specItem input",function(){
+		let new_text = $(this).val();
+		let span = `<span class="flex-grow-1 me-3  d-flex align-items-center">${new_text}</span>`;
+		
+		// 更新 specForm
+		let new_input = `<input type="hidden" name="spec" value="${new_text}">`;
+		//console.log($(this).parent());
+		//console.log($("li.specItem").index($(this).parent()));
+		$("form#specForm input").eq($("li.specItem").index($(this).parent()) + 1).replaceWith(new_input);
+		// 更新 specList
+		$(this).replaceWith(span);
+	})
+	
+	// 送出表單
+	$("#specModal").on("click","#save_btn",function(){
+		$("form#specForm").submit();
+	})
+	
+	// 刪除所有spec
+	$(document).on("click","#deleteAll_btn",function(){
+		deleteAllSpec();
+		$(this).remove();
+	})
+
 })
 
 $(window).on("load",function(){
@@ -231,9 +299,9 @@ function checkFormDataValue(){
 }
 
 function addModal(){
-	if($(".modal").length == 0){
+	if($(".editAndNew").length == 0){
 		let html = `
-		<div class="modal fade" tabindex="-1" id="">
+		<div class="modal fade editAndNew" tabindex="-1" id="">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -285,4 +353,46 @@ function addModal(){
 		`;
 		$("nav.page").after(html);
 	}
+}
+
+$(document).on("click", ".addSpec", function () {
+	const laptopId = $(this).closest("tr").find("td:first-child").text();
+	let input = `<input type="hidden" name="laptopId" value=${laptopId}>`;
+	$("form#specForm").prepend(input);
+	// 取得現有的所有規格	
+	$.ajax({
+		type:'get',
+		url:`/laptops/${laptopId}/specs`,
+		success:function(res){
+			//console.log(res);
+			// 把資料 reset 避免殘留舊的資料
+			if($("ul#specList li").length > 0){
+				$("ul#specList li").remove();
+			}
+			for(i = 0; i < res.length; i++){
+				let spec = res[i];
+				let li_el = `<li class="specItem d-flex align-items-center mb-3">
+							<span class="flex-grow-1 me-3  d-flex align-items-center">${spec}</span>
+							<button type="button" class="removeBtn btn btn-danger">刪除</button>
+						</li>`;					
+				$("ul#specList").append(li_el);
+
+				let input_el = `<input type="hidden" name="spec" value="${spec}">`
+				$("form#specForm").append(input_el);
+			}
+			
+			if(res.length > 0){
+				if($("#deleteAll_btn").length === 0){					
+					let deleteAllBtn = '<button type="button" class="btn btn-warning mb-3" id="deleteAll_btn">全部刪除</button>'
+					$("ul#specList").before(deleteAllBtn);
+				}
+			}
+		}
+	})
+});
+
+function deleteAllSpec(){
+	$("#deleteAll_btn").remove();
+	$("form#specForm input").remove();	
+	$("#specModal ul#specList li").remove();
 }

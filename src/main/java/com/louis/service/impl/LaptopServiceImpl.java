@@ -1,6 +1,7 @@
 package com.louis.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,30 @@ public class LaptopServiceImpl implements LaptopService {
 	@Override
 	public void deleteProductById(String id) {
 		dao.deleteProductById(id);
+	}
+
+	@Override
+	public void createSpecItmes(String laptopId ,List<String> specList) {
+		
+//		List<String> allSpec = getSpecByLaptopId(Integer.parseInt(laptopId));
+		
+//		for(String spec1 : allSpec) {
+//			System.out.println("spec1:" + spec1);
+//		}
+//		
+//		for(String spec2 : specList) {
+//			System.out.println("spec2:" + spec2);
+//		}
+//		List<String> temp = new ArrayList<String>();
+//		for(int i = 0; i < specList.size(); i++) {
+//			for(int j = 0; j < allSpec.size(); j++) {
+//				if(specList.get(i).equals(allSpec.get(i))) {
+//					continue;
+//				}
+//				temp.add(specList.get(i));
+//			}
+//		}
+		dao.createSpecItmes(laptopId,specList);
 	}
 	
 	

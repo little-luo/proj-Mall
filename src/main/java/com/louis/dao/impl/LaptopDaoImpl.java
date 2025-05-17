@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -260,6 +261,37 @@ public class LaptopDaoImpl implements LaptopDao {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
+		
+		namedParameterJdbcTemplate.update(sql, map);
+	}
+
+	@Override
+	public void createSpecItmes(String laptopId,List<String> specList) {
+		String sql = "insert into laptop_spec(laptop_id,spec) values(:laptop_id, :spec)";
+		
+		if(specList != null) {
+			// 刪除所有 spec
+			deleteSpecItems(laptopId);
+			// 新增spec
+			MapSqlParameterSource[] mapSqlParameterSources = new MapSqlParameterSource[specList.size()];
+			for(int i = 0; i < specList.size(); i++) {
+				mapSqlParameterSources[i] = new MapSqlParameterSource();
+				mapSqlParameterSources[i].addValue("laptop_id", laptopId);
+				mapSqlParameterSources[i].addValue("spec", specList.get(i));
+			}
+			
+			namedParameterJdbcTemplate.batchUpdate(sql, mapSqlParameterSources);
+		}else {
+			deleteSpecItems(laptopId);
+		}
+	}
+	
+	public void deleteSpecItems(String laptopId) {
+		String sql = "delete from laptop_spec where laptop_id = :laptopId";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("laptopId", laptopId);
 		
 		namedParameterJdbcTemplate.update(sql, map);
 	}
