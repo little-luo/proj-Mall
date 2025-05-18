@@ -44,7 +44,7 @@ public class UserController {
 	
 	private final String ADMINPAGE = "<script>window.location.href='/admin';</script>";
 	
-	private String referer = null;
+	private String referer = "/home";
 	@CrossOrigin
 	@ResponseBody
 	@PostMapping(value = "/isAuthenticate",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
