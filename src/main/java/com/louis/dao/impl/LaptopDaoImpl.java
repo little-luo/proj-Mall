@@ -90,7 +90,7 @@ public class LaptopDaoImpl implements LaptopDao {
 	@Override
 	public List<Laptop> getLaptopByName(String name) {
 		
-		String sql = "select laptop_id,laptop_name,price,image_url "
+		String sql = "select laptop_id,laptop_name,price,image_url,brand,os,size "
 				   + "from laptop where laptop_name like :laptop_name";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -103,7 +103,7 @@ public class LaptopDaoImpl implements LaptopDao {
 	@Override
 	public List<Laptop> getProducts(SearchQuery query) {
 		
-		String sql = "select laptop_id,laptop_name,price,image_url "
+		String sql = "select laptop_id,laptop_name,price,image_url,brand,os,size "
 				   + "from laptop where 1=1";
 		Map<String, Object> map = new HashMap<String, Object>();
 		
