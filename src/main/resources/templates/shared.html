@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- jQuery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>共用</title>
 </head>
@@ -17,7 +16,23 @@
 			<div th:replace="~{homepage::cart_block}"></div>
 		</div>
 	</nav>
-	
+	<div class="loading" th:fragment="loading">
+		<div class="dot" style="--i:1;"></div>
+		<div class="dot" style="--i:2;"></div>
+		<div class="dot" style="--i:3;"></div>
+		<div class="dot" style="--i:4;"></div>
+		<div class="dot" style="--i:5;"></div>
+		<div class="dot" style="--i:6;"></div>
+		<div class="dot" style="--i:7;"></div>
+		<div class="dot" style="--i:8;"></div>
+		<div class="dot" style="--i:9;"></div>
+		<div class="dot" style="--i:10;"></div>
+		<div class="dot" style="--i:11;"></div>
+		<div class="dot" style="--i:12;"></div>
+	</div>
+	<div class="scroll" th:fragment="scroll" style="display:none;">
+		<span class="material-symbols-outlined">stat_2</span>
+	</div>
  	<script th:fragment="full_name">
  		$.ajax({
  			url:'/getFullName',
@@ -54,6 +69,16 @@
 				window.location.href = '/loginpage';
 			})
  		})
+	</script>
+	<script th:fragment="getBodyHeight">
+		let body_height = $("body").height();
+		//console.log(body_height);
+		$(".loading_box").css("min-height", body_height + "px");
+		$(window).on("load",function(){			
+			setTimeout(function(){
+				$(".loading_box").css("display","none");
+			},1500);
+		})
 	</script>
 </body>
 </html>

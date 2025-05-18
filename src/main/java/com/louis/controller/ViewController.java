@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.service.LaptopService;
 
@@ -66,10 +67,29 @@ public class ViewController {
 	}
 	
 	@GetMapping("/admin")
-	public String admin(Model model) {
+	public String admin(Model model,@RequestParam(required = false,defaultValue = "0") Integer offset,
+						@RequestParam(required = false,defaultValue = "laptop_id") String orderBy,
+						@RequestParam(required = false,defaultValue = "asc") String sort) {
 		
-		List<Laptop> laptopList = laptopService.getLaptops();
-		model.addAttribute("laptops", laptopList);
+		SortQuery sortQuery = new SortQuery();
+		sortQuery.setOrderBy(orderBy);
+		sortQuery.setSort(sort);
+		
+		Integer startIndex = null,endIndex = null;
+		if(offset == 0) {				
+			startIndex = 0;
+			endIndex = 10;
+		}else {
+			startIndex = offset;
+			endIndex = startIndex + 10;
+		}
+		List<Laptop> laptopList = laptopService.getLaptops(sortQuery);
+		try {			
+			model.addAttribute("laptops", laptopList.subList(startIndex, endIndex));
+		} catch (Exception e) {
+			//e.printStackTrace();
+			model.addAttribute("laptops", laptopList.subList(startIndex,laptopList.size()));
+		}
 		return "admin";
 	}
 

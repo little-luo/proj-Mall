@@ -1,7 +1,9 @@
 package com.louis.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.ListenerNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +20,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.expression.Lists;
 
 import com.louis.dto.SearchQuery;
+import com.louis.dto.SortQuery;
 import com.louis.module.Laptop;
 import com.louis.service.LaptopService;
 
@@ -48,7 +54,7 @@ public class LaptopController {
 	@GetMapping("/laptops")
 	public ResponseEntity<List<Laptop>> getLaptops(){
 		
-		List<Laptop> laptopList = laptopService.getLaptops();
+		List<Laptop> laptopList = laptopService.getLaptops(null);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(laptopList);
 	}
@@ -56,7 +62,7 @@ public class LaptopController {
 	@GetMapping("/home")
 	public String home(Model model) {
 		
-		List<Laptop> laptopList = laptopService.getLaptops();
+		List<Laptop> laptopList = laptopService.getLaptops(null);
 
 		model.addAttribute("laptops", laptopList);
 		
@@ -95,4 +101,63 @@ public class LaptopController {
 		}
 	}
 	
+	@PostMapping("/createProduct")
+	public ResponseEntity<String> createProduct(@RequestParam Map<String, Object> params, @RequestParam("prodImg") MultipartFile file) throws IOException{
+		
+		laptopService.createProduct(params,file);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("<script>window.location.href='/admin';</script>");
+		
+	}
+	
+	@PostMapping("/updateProduct/{id}")
+	public ResponseEntity<String> updateProdcutById(@RequestParam Map<String, Object> params,@PathVariable String id, @RequestParam("prodImg") MultipartFile file) {
+		
+		laptopService.updateProductById(params,id,file);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("<script>window.location.href='/admin';</script>");
+	}
+	
+	@GetMapping("/deleteProduct/{id}")
+	public ResponseEntity<String> deleteProductById(@PathVariable String id){
+
+		laptopService.deleteProductById(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("刪除成功");
+	}
+	
+	@GetMapping("/getPageTotal")
+	public ResponseEntity<String> getPageTotal(@RequestParam(required = false,defaultValue = "laptop_id") String orderBy,
+											   @RequestParam(required = false,defaultValue = "asc") String sort){
+		
+		SortQuery sortQuery = new SortQuery();
+		sortQuery.setOrderBy(orderBy);
+		sortQuery.setSort(sort);
+		
+		Integer size = laptopService.getLaptops(sortQuery).size();
+		
+		Integer pageTotal = null;
+		if(size <= 10) {
+			pageTotal = 1;
+		}
+		
+		if(size > 10) {
+			pageTotal = size / 10 + 1;
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(pageTotal));
+	}
+	
+	@PostMapping("/addSpecs")
+	public ResponseEntity<String> getProducts(@RequestParam(required = true) String laptopId, 
+							@RequestParam(required = false,name = "spec") List<String> allSpecs){
+		
+		laptopService.createSpecItmes(laptopId,allSpecs);
+		return ResponseEntity.status(HttpStatus.OK).body("<script>window.location.href='/admin';</script>");
+	}
+	
+	@GetMapping("/laptops/{laptopId}/specs")
+	public ResponseEntity<List<String>> getlaptopSpecsById(@PathVariable Integer laptopId){
+		return ResponseEntity.status(HttpStatus.OK).body(laptopService.getSpecByLaptopId(laptopId));
+	}
 }

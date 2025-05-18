@@ -38,4 +38,110 @@ td:has(button) td{
 :where(thead) th:nth-of-type(2){
 	width:150px;
 }
+:where(.right_block) span{
+	user-select:none;
+	font-weight:700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+}
 
+:where(.right_block) button{
+	width:fit-content;
+}
+
+:where(nav.bottom_block) ul{
+	margin:0px;
+}
+:where(nav.bottom_block) {
+	bottom:20px;
+}
+
+nav.navbar{
+	& #logout{
+		outline: none;
+	    background: none;
+	    border: none;
+	}
+}
+
+#logout{
+	outline: none;
+    background: none;
+    border: none;
+}
+
+:where(.container) table {
+	table-layout:fixed;
+	& thead tr th:first-child{
+		width:10%;
+	}
+	
+	& thead tr th:nth-child(2){
+		width:auto;
+	}
+	
+	& thead tr th:nth-child(3){
+		width:20%;
+	}
+	
+	& thead tr th:nth-child(4){
+		width:7.5%;
+	}
+	
+	& thead tr th:nth-child(5){
+		width:7.5%;
+	}
+	
+	& thead tr th:nth-child(6){
+		width:auto;
+	}
+}
+
+ul#specList{
+	& li.specItem{
+		list-style-type:none;
+		transition:all 1.5s;
+	}
+	
+	& li.specItem.hidden{
+		opacity:0;
+	}
+	
+	& span{
+		border-bottom:1px solid black;
+		max-width: 390px;
+	}
+	
+	& li.specItem input{
+		border-top-color:transparent;
+		border-left-color:transparent;
+		border-right-color:transparent;
+		outline:none;
+		border-bottom:1px solid black;
+	}
+}
+
+#deleteAll_btn{
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+}
+
+.scroll{
+	padding:10px;
+	background:orange;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	border-radius: 5%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	cursor:pointer;
+	
+	& span{
+		font-size:24px;
+	}
+}

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+body{
+	min-height:100vh;
+}
+.loading_box{
+	position: absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background:rgba(0,0,0,0.3);
+}
+
+.loading{
+	position: absolute;
+	top:350px;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+.dot{
+	position:absolute;
+	top:0;
+	left:0;
+	border-radius:50%;
+	width:20px;
+	height:20px;
+	transform:rotateZ(calc(var(--i) * (360deg / 12))) translateY(55px);
+	background:red;
+	animation:scale 1.5s linear infinite;
+	animation-delay:calc(0.125s * var(--i));
+}
+
+@keyframes scale{
+	from{
+		transform:rotateZ(calc(var(--i) * (360deg / 12))) translateY(55px) scale(0);
+		opacity:0;
+		filter:hue-rotate(0deg);
+	}
+	to{
+		transform:rotateZ(calc(var(--i) * (360deg / 12))) translateY(55px) scale(1);	
+		opacity:1;
+		filter:hue-rotate(360deg);
+	}
+}
+
