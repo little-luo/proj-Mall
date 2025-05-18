@@ -257,9 +257,15 @@ function showResult(res){
 		`;	
 		$("#product_block").append(html);		
 	}
+
+	let body_height = parseInt($("body").height());
+	let window_height = window.innerHeight;
+
+	if(body_height < window_height){
+		$("body").css("height",`${window_height}px`);
+	}
 }
 // 滾動至最上方
 $(".scroll").on("click",scrollToTop);
 // 顯示 / 隱藏 滾動按鈕
 switchScrollBtn();
-
