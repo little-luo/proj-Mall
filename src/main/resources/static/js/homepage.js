@@ -263,6 +263,8 @@ function showResult(res){
 
 	if(body_height < window_height){
 		$("body").css("height",`${window_height}px`);
+	}else{
+		$("body").css("height","max-content");
 	}
 }
 // 滾動至最上方
