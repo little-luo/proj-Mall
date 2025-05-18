@@ -16,7 +16,7 @@ html{
 	height:1000px;
 }
 body{
-	height:100%;
+	height:max-content;
 }
 /* 導覽列 */
 nav#navbar_block{
@@ -156,7 +156,7 @@ section#product_block{
 	/* border:1px solid orange; */
 	font-size: 0px;
 	display:flex;
-	padding:15px;
+	padding:30px 15px 15px 15px;
 	flex-direction: row;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -164,6 +164,7 @@ section#product_block{
 	margin-left:30px;
 	width:700px;
 	flex-grow:1;
+	row-gap:10px;
 }
 
 div.card{
@@ -175,6 +176,10 @@ div.card{
 	flex-direction: column;
 	justify-content: flex-start;
 	position:relative;
+}
+.card:hover{
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+	transform:translateY(-10px);
 }
 div.pic{
 	height:200px;
@@ -237,4 +242,21 @@ div.info small{
     color: #fff;
     cursor: pointer;
     margin-right:5px;
+}
+
+.scroll{
+	padding:10px;
+	background:orange;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	border-radius: 5%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	cursor:pointer;
+	
+	& span{
+		font-size:24px;
+	}
 }

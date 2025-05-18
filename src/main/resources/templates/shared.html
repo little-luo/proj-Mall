@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- jQuery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>共用</title>
 </head>
@@ -30,6 +29,9 @@
 		<div class="dot" style="--i:10;"></div>
 		<div class="dot" style="--i:11;"></div>
 		<div class="dot" style="--i:12;"></div>
+	</div>
+	<div class="scroll" th:fragment="scroll" style="display:none;">
+		<span class="material-symbols-outlined">stat_2</span>
 	</div>
  	<script th:fragment="full_name">
  		$.ajax({

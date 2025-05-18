@@ -1,3 +1,6 @@
+
+import scrollToTop, {switchScrollBtn} from '/js/scroll.js'
+
 $(document).ready(function(){
 	const param = new URLSearchParams(window.location.search);
 	let orderBy = param.get('orderBy') || 'laptop_id';
@@ -11,7 +14,7 @@ $(document).ready(function(){
 			let pageItem = $("ul.pagination li.page-item").slice(1,4);
 			let pageItemLength = pageItem.length;
 			
-			for(i = 0; i < pageItemLength; i++){
+			for(var i = 0; i < pageItemLength; i++){
 				let offset = i * 10;
 				pageItem.eq(i).find('a').attr('href',`/admin?offset=${offset}&orderBy=${orderBy}&sort=${sort}`);
 			}
@@ -396,3 +399,8 @@ function deleteAllSpec(){
 	$("form#specForm input").remove();	
 	$("#specModal ul#specList li").remove();
 }
+
+// 滾動至最上方
+$(".scroll").on("click",scrollToTop);
+// 顯示 / 隱藏 滾動按鈕
+switchScrollBtn();

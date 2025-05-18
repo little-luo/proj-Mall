@@ -45,6 +45,8 @@ function check_only_one(option,this_el){
 	})
 }
 */
+import scrollToTop, {switchScrollBtn} from '/js/scroll.js'
+
 // 核取方塊 寫法二
 let this_el = null;
 $(document).on("click","input[type='checkbox']",function(e){
@@ -231,7 +233,7 @@ $("#search_block").on("click","input",function(){
 })
 function showResult(res){
 	$("#product_block").empty();
-	for(i = 0; i < res.length; i++){
+	for(let i = 0; i < res.length; i++){
 		const html = `
 		  <div class="card">
 		    <div class="pic">
@@ -256,3 +258,8 @@ function showResult(res){
 		$("#product_block").append(html);		
 	}
 }
+// 滾動至最上方
+$(".scroll").on("click",scrollToTop);
+// 顯示 / 隱藏 滾動按鈕
+switchScrollBtn();
+

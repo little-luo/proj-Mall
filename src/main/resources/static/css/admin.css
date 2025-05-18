@@ -129,3 +129,19 @@ ul#specList{
     transform: translateX(-100%);
 }
 
+.scroll{
+	padding:10px;
+	background:orange;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	border-radius: 5%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	cursor:pointer;
+	
+	& span{
+		font-size:24px;
+	}
+}

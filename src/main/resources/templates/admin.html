@@ -134,7 +134,8 @@
 		</div>	
 	</div>
 	<div th:insert="~{shared::loading}" class="loading_box"></div>
-	<script src="/js/admin.js"></script>
+	<div th:replace="~{shared::scroll}"></div>
+	<script src="/js/admin.js" type="module"></script>
 	<script th:replace="~{shared::getBodyHeight}"></script>
 </body>
 </html>
